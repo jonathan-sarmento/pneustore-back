@@ -16,7 +16,6 @@ namespace pneustoreAPI
         {
             var host = CreateHostBuilder(args).Build();
             SeedDatabase.Initialize(host);
-            
             host.Run();
         }
 
