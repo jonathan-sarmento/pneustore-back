@@ -30,7 +30,7 @@ namespace pneustoreAPI
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "pneustoreAPI", Version = "v1" });
             });
 
-            services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("Jonathan")));
+            services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("Caio")));
 
             services.AddTransient<IService<Product>, ProductService>();
             services.AddTransient<IService<Estabelecimento>, EstabelecimentoService>();
