@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31424.327
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "pneustoreAPI", "pneustoreAPI.csproj", "{F3461FCE-DDFC-4E8D-90EB-24A16A7221AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pneustoreAPI.Tests", "..\pneustoreAPI.Tests\pneustoreAPI.Tests.csproj", "{2B93AFC3-75FB-4127-868C-B699864B3EF0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F3461FCE-DDFC-4E8D-90EB-24A16A7221AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3461FCE-DDFC-4E8D-90EB-24A16A7221AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3461FCE-DDFC-4E8D-90EB-24A16A7221AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3461FCE-DDFC-4E8D-90EB-24A16A7221AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B93AFC3-75FB-4127-868C-B699864B3EF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B93AFC3-75FB-4127-868C-B699864B3EF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B93AFC3-75FB-4127-868C-B699864B3EF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B93AFC3-75FB-4127-868C-B699864B3EF0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {07CE2C93-05AC-4FCE-AE29-3CFABEBF7515}
+	EndGlobalSection
+EndGlobal
