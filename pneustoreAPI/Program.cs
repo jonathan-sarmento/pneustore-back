@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using pneustoreAPI.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace pneustoreAPI
         public static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
+            SeedDatabase.Initialize(host);
             
             host.Run();
         }
