@@ -1,12 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using pneustoreAPI.Models;
 
-namespace pneustoreapi.Data
+namespace pneustoreAPI.Data
 {
     public class Context : DbContext
     {
         public Context(DbContextOptions<Context> options){ }
 
-        DbSet<Product> Products { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Product> Estabelecimentos { get; set; }
     }
 }

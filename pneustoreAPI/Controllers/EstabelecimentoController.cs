@@ -1,15 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using pneustoreAPI.Models;
 using pneustoreAPI.Services;
 
 namespace pneustoreAPI.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class ProductController : APIBaseController
+    public class EstabelecimentoController : APIBaseController
     {
-        IService<Product> _service;
-        public ProductController(IService<Product> service)
+        IService<Estabelecimento> _service;
+        public EstabelecimentoController(IService<Estabelecimento> service)
         {
             _service = service;
         }
@@ -21,7 +19,6 @@ namespace pneustoreAPI.Controllers
         public IActionResult Get(int? id) =>
             _service.Get(id) != null ?
                 ApiOk(_service.Get(id)) :
-                ApiNotFound($"Produto com id:{id} não existe."); 
-        
+                ApiNotFound($"Estabelecimento com o id:{id} não existe.");
     }
 }
