@@ -20,7 +20,6 @@ namespace pneustoreAPI.Data
                     {
                         context.Add(new Product
                         {
-                            id = i,
                             nome = $"Pneu{i}",
                             imagemUrl = $"https://static.pneustore.com.br/medias/sys_master/images/images/h5d/h7a/8859585544222/pneu-firestone-aro-16-destination-a-t-225-70r16-102-99s-1.jpg",
                             imagemUrlMarca = $"https://static.pneustore.com.br/medias/sys_master/images/images/hb9/hf5/8861805248542/brand-firestone-lg.svg",
