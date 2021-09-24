@@ -13,10 +13,19 @@ namespace pneustoreAPI.Controllers
         {
             _service = service;
         }
+        /// <summary>
+        /// Retorna lista de produtos (pneus) cadastrados no banco de dados
+        /// </summary>
+        /// <returns></returns>
 
         [HttpGet]
         public IActionResult Index() => Ok(_service.GetAll());
 
+        /// <summary>
+        /// Retorna produto especifíco cadastrado no banco 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("{id}"), HttpGet]
         public IActionResult Get(int? id) =>
             _service.Get(id) != null ?
