@@ -6,6 +6,10 @@ namespace pneustoreAPI.Controllers
     [Route("[controller]")]
     public class FreteController : ControllerBase
     {
+        /// <summary>
+        /// Deve retornar valor de envio para CEPs específicos, por enquanto, não implementado 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult Index()
         {

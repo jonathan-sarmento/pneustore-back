@@ -8,6 +8,9 @@ using Microsoft.OpenApi.Models;
 using pneustoreAPI.Data;
 using pneustoreAPI.Models;
 using pneustoreAPI.Services;
+using System;
+using System.IO;
+using System.Reflection;
 
 namespace pneustoreAPI
 {
@@ -28,10 +31,21 @@ namespace pneustoreAPI
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "pneustoreAPI", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "pneustoreAPI", Version = "v1" ,
+                    Description = "",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Caio Silva",
+                        Email = "caio.silva@grupolevel.com.br",
+                        Url = new Uri("https://www.pneustore.com.br/")
+                    }
+                });
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = $"{Path.Combine(AppContext.BaseDirectory, xmlFile)}";
+                c.IncludeXmlComments(xmlPath);
             });
 
-            services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("Caio")));
+            services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("Pedro")));
 
             services.AddTransient<IService<Product>, ProductService>();
             services.AddTransient<IService<Estabelecimento>, EstabelecimentoService>();
@@ -50,18 +64,17 @@ namespace pneustoreAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
             app.UseCors(x => x
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader());
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+           
         }
     }
 }
