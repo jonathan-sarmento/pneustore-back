@@ -13,7 +13,7 @@ namespace pneustoreAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index() => Ok(_service.GetAll());
+        public IActionResult Index() => ApiOk(_service.GetAll());
 
         [Route("{id}"), HttpGet]
         public IActionResult Get(int? id) =>
