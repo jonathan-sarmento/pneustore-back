@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using pneustoreAPI.API;
 using pneustoreAPI.Data;
 using pneustoreAPI.Models;
 using pneustoreAPI.Services;
@@ -49,6 +51,23 @@ namespace pneustoreAPI
 
             services.AddTransient<IService<Product>, ProductService>();
             services.AddTransient<IService<Estabelecimento>, EstabelecimentoService>();
+        }
+        private void CreateRoles(IServiceProvider serviceProvider)
+        {
+            //initializing custom roles 
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            string[] roleNames = Enum.GetNames(typeof(RoleType)); ;
+
+            foreach (var role in roleNames)
+            {
+                var roleExist = RoleManager.RoleExistsAsync(role);
+                if (!roleExist.Result)
+                {
+                   
+                    var roleResult = RoleManager.CreateAsync(new IdentityRole(role));
+                    roleResult.Wait();
+                }
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
