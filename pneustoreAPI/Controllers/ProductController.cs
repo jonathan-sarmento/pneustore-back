@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using pneustoreAPI.API;
 using pneustoreAPI.Models;
 using pneustoreAPI.Services;
 
@@ -27,6 +28,7 @@ namespace pneustoreAPI.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [Route("{id}"), HttpGet]
+        [AuthorizeRoles(RoleType.Common)]
         public IActionResult Get(int? id) =>
             _service.Get(id) != null ?
                 ApiOk(_service.Get(id)) :
