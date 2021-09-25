@@ -17,7 +17,7 @@ namespace pneustoreAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult Index() => Ok(_service.GetAll());
+        public IActionResult Index() => ApiOk(_service.GetAll());
         /// <summary>
         /// Retorna estabelecimento específico a partir de ID único
         /// </summary>
