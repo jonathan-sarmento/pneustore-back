@@ -48,11 +48,10 @@ namespace EstabelecimentoControllerTest
         [InlineData(1)]
         [InlineData(5)]
         [InlineData(10)]
-        [InlineData(0, "Estabelecimento não existe.", false)]
-        [InlineData(579, "Estabelecimento não existe.", false)]
-        [InlineData(-55, "Estabelecimento não existe.", false)]
-        [InlineData(null, "Estabelecimento não existe.", false)]
-        [InlineData(14, "Estabelecimento não existe.", false)]
+        [InlineData(0, "Estabelecimento com o id:0 não existe.", false)]
+        [InlineData(579, "Estabelecimento com o id:579 não existe.", false)]
+        [InlineData(-55, "Estabelecimento com o id:-55 não existe.", false)]
+        [InlineData(14, "Estabelecimento com o id:14 não existe.", false)]
         public void GetProduct_Return_Product_By_Id(int? id, string message = "", bool succeed = true)
         {
             var estabelecimentoService = A.Fake<IService<Estabelecimento>>();
