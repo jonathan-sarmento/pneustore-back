@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web.Http;
 
 namespace pneustoreAPI.API
 {
-    public class AuthorizeRolesAttribute:AuthorizeAttribute
+    public class AuthorizeRolesAttribute : AuthorizeAttribute
     {
         public AuthorizeRolesAttribute(params RoleType[] r)
         {

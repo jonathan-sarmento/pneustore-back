@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -5,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using pneustoreAPI.API;
 using pneustoreAPI.Data;
@@ -13,6 +15,7 @@ using pneustoreAPI.Services;
 using System;
 using System.IO;
 using System.Reflection;
+using System.Text;
 
 namespace pneustoreAPI
 {
@@ -47,31 +50,39 @@ namespace pneustoreAPI
                 c.IncludeXmlComments(xmlPath);
             });
 
-            services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("Pedro")));
+            services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("Caio")));
+
+            services.AddDefaultIdentity<IdentityUser>().AddRoles<IdentityRole>().AddEntityFrameworkStores<Context>();
 
             services.AddTransient<IService<Product>, ProductService>();
             services.AddTransient<IService<Estabelecimento>, EstabelecimentoService>();
-        }
-        private void CreateRoles(IServiceProvider serviceProvider)
-        {
-            //initializing custom roles 
-            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            string[] roleNames = Enum.GetNames(typeof(RoleType)); ;
+            /*Seria interessante implementar autenticação com tipos genéricos! 
+             Pode facilitar o trabalho em caso de uma implementação futura
+             onde é necessário mais atributos do usuário, mas não agora.*/
+            services.AddTransient<IAuthService, AuthService>();
 
-            foreach (var role in roleNames)
+            var key = Encoding.ASCII.GetBytes(Configuration["Jwt:Key"]);
+            services.AddAuthentication(x =>
             {
-                var roleExist = RoleManager.RoleExistsAsync(role);
-                if (!roleExist.Result)
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
                 {
-                   
-                    var roleResult = RoleManager.CreateAsync(new IdentityRole(role));
-                    roleResult.Wait();
-                }
-            }
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -83,17 +94,39 @@ namespace pneustoreAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+                
             app.UseCors(x => x
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader());
+                
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
-           
+
+            CreateRoles(serviceProvider);
+        }
+
+        private void CreateRoles(IServiceProvider serviceProvider)
+        {
+            //initializing custom roles 
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            string[] roleNames = Enum.GetNames(typeof(RoleType)); ;
+
+            foreach (var role in roleNames)
+            {
+                var roleExist = RoleManager.RoleExistsAsync(role);
+                if (!roleExist.Result)
+                {
+
+                    var roleResult = RoleManager.CreateAsync(new IdentityRole(role));
+                    roleResult.Wait();
+                }
+            }
         }
     }
 }
