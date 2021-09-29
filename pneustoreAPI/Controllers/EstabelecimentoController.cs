@@ -5,6 +5,8 @@ using pneustoreAPI.Services;
 
 namespace pneustoreAPI.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class EstabelecimentoController : APIBaseController
     {
         IService<Estabelecimento> _service;
