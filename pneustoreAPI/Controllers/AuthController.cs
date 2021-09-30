@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using pneustoreAPI.Models;
 using pneustoreAPI.Services;
 using System;
 using System.Collections.Generic;
@@ -36,7 +37,7 @@ namespace pneustoreAPI.Controllers
         #endregion
         [HttpPost]
         [Route("NewUser")]
-        public IActionResult NewUser(IdentityUser identityUser)
+        public IActionResult NewUser(PneuUser identityUser)
         {
             try
             {
@@ -62,7 +63,7 @@ namespace pneustoreAPI.Controllers
         #endregion
         [HttpPost]
         [Route("Token")]
-        public IActionResult Token([FromBody] IdentityUser identityUser)
+        public IActionResult Token([FromBody] PneuUser identityUser)
         {
             try
             {

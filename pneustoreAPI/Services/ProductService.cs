@@ -14,6 +14,11 @@ namespace pneustoreAPI.Services
             _context = context;
         }
 
+        public bool Create(Product objeto)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public Product Get(int? id) => _context.Products.FirstOrDefault(p => p.id == id);
         
         public List<Product> GetAll() => _context.Products.ToList();

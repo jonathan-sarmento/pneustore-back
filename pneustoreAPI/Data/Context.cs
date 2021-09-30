@@ -9,7 +9,23 @@ namespace pneustoreAPI.Data
         public Context(DbContextOptions<Context> options) : base(options)
         { }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.Entity<Carrinho>()
+                .HasKey(tt => new { tt.ProductId, tt.UserId });
+
+            builder.Entity<Carrinho>()
+                .HasOne(a => a.User)
+                .WithMany(d => d.Carrinho)
+                .HasForeignKey(d => d.UserId);
+        }
+
         public DbSet<Product> Products { get; set; }
+
         public DbSet<Product> Estabelecimentos { get; set; }
+
+        public DbSet<Carrinho> Carrinho { get; set; }
     }
 }
