@@ -45,20 +45,21 @@ namespace pneustoreAPI
                         Url = new Uri("https://www.pneustore.com.br/")
                     }
                 });
+                
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = $"{Path.Combine(AppContext.BaseDirectory, xmlFile)}";
                 c.IncludeXmlComments(xmlPath);
             });
 
-            services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("Caio")));
+            services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("Jonathan")));
 
             services.AddDefaultIdentity<PneuUser>().AddRoles<IdentityRole>().AddEntityFrameworkStores<Context>();
 
             services.AddTransient<IService<Product>, ProductService>();
             services.AddTransient<IService<Estabelecimento>, EstabelecimentoService>();
-            /*Seria interessante implementar autenticação com tipos genéricos! 
-             Pode facilitar o trabalho em caso de uma implementação futura
-             onde é necessário mais atributos do usuário, mas não agora.*/
+            /*Seria interessante implementar autenticaï¿½ï¿½o com tipos genï¿½ricos! 
+             Pode facilitar o trabalho em caso de uma implementaï¿½ï¿½o futura
+             onde ï¿½ necessï¿½rio mais atributos do usuï¿½rio, mas nï¿½o agora.*/
             services.AddTransient<IAuthService, AuthService>();
 
             var key = Encoding.ASCII.GetBytes(Configuration["Jwt:Key"]);
