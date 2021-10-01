@@ -18,9 +18,11 @@ namespace pneustoreAPI.Controllers
     public class CarrinhoController : APIBaseController
     {
         CarrinhoService service;
-        public CarrinhoController(CarrinhoService service)
+        IService<Product> _productService;
+        public CarrinhoController(CarrinhoService service, IService<Product> productService)
         {
             this.service = service;
+            _productService = productService;
         }
 
         [HttpGet]
@@ -56,7 +58,8 @@ namespace pneustoreAPI.Controllers
             Carrinho carrinho = new Carrinho()
             {
                 ProductId = produtoId,
-                UserId = service.GetCurrentUserId(User.Identity.Name)
+                UserId = service.GetCurrentUserId(User.Identity.Name),
+                Product = _productService.Get(produtoId)
             };
             return service.Create(carrinho) ?
                 ApiCreated($"[controller]/{service.GetAll().LastOrDefault()}", "Carrinho criado com sucesso.")
