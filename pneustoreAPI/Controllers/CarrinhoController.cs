@@ -52,9 +52,15 @@ namespace pneustoreAPI.Controllers
                ApiNotFound("Erro ao deletar carrinho!");
 
         [HttpPost]
-        public IActionResult AddCarrinho([FromBody] Carrinho carrinho) =>
-            service.Create(carrinho) ?
+        public IActionResult AddCarrinho([FromBody] int produtoId) {
+            Carrinho carrinho = new Carrinho()
+            {
+                ProductId = produtoId,
+                UserId = service.GetCurrentUserId(User.Identity.Name)
+            };
+            return service.Create(carrinho) ?
                 ApiCreated($"[controller]/{service.GetAll().LastOrDefault()}", "Carrinho criado com sucesso.")
                 : ApiBadRequest(carrinho, "Deu erro");
+        }
     }
 }
