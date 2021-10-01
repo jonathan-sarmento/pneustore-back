@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using pneustoreAPI.Data;
 using pneustoreAPI.Models;
 using System;
@@ -11,9 +12,11 @@ namespace pneustoreAPI.Services
     public class CarrinhoServices
     {
         Context context;
-        public CarrinhoServices(Context context)
+        public readonly UserManager<PneuUser> userManager;
+        public CarrinhoServices(Context context, UserManager<PneuUser> _userManager)
         {
             this.context = context;
+            userManager = _userManager;
         }
         public bool Create(Carrinho objeto)
         {
@@ -55,5 +58,19 @@ namespace pneustoreAPI.Services
         {
             return context.Users.FirstOrDefault(u => u.UserName == userName).Id;
         }
+        public bool Delete(int? id)
+        {
+            try
+            {
+                context.Products.Remove(Get(id));
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
     }
 }
