@@ -57,7 +57,7 @@ namespace pneustoreAPI
 
             services.AddTransient<IService<Product>, ProductService>();
             services.AddTransient<IService<Estabelecimento>, EstabelecimentoService>();
-            services.AddTransient<CarrinhoServices>();
+            services.AddTransient<CarrinhoService>();
             /*Seria interessante implementar autentica��o com tipos gen�ricos! 
              Pode facilitar o trabalho em caso de uma implementa��o futura
              onde � necess�rio mais atributos do usu�rio, mas n�o agora.*/

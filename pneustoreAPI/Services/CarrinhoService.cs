@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace pneustoreAPI.Services
 {
-    public class CarrinhoServices
+    public class CarrinhoService
     {
         Context context;
         public readonly UserManager<PneuUser> userManager;
-        public CarrinhoServices(Context context, UserManager<PneuUser> _userManager)
+        public CarrinhoService(Context context, UserManager<PneuUser> _userManager)
         {
             this.context = context;
             userManager = _userManager;

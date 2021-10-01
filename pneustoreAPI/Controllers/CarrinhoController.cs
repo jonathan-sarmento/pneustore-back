@@ -17,8 +17,8 @@ namespace pneustoreAPI.Controllers
     [Authorize]
     public class CarrinhoController : APIBaseController
     {
-        CarrinhoServices service;
-        public CarrinhoController(CarrinhoServices service)
+        CarrinhoService service;
+        public CarrinhoController(CarrinhoService service)
         {
             this.service = service;
         }
