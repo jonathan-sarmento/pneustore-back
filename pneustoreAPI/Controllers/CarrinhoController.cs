@@ -15,7 +15,6 @@ namespace pneustoreAPI.Controllers
     [ApiController]
     [Route("[controller]")]
     [Authorize]
-
     public class CarrinhoController : APIBaseController
     {
         CarrinhoServices service;
@@ -48,7 +47,7 @@ namespace pneustoreAPI.Controllers
         [Route("{id}")]
         [HttpDelete]
         public IActionResult Delete(int? id) =>
-         services.Delete(id) ?
+         service.Delete(User.Identity.Name, id) ?
                ApiOk("Carrinho deletado com sucesso!") :
                ApiNotFound("Erro ao deletar carrinho!");
 

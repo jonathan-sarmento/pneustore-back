@@ -25,17 +25,13 @@ namespace pneustoreAPI.Services
 
             try
             {
-
                 context.Carrinho.Add(objeto);
                 context.SaveChanges();
                 return true;
-
             }
             catch
             {
-
                 return false;
-
             }
         }
 
@@ -58,11 +54,11 @@ namespace pneustoreAPI.Services
         {
             return context.Users.FirstOrDefault(u => u.UserName == userName).Id;
         }
-        public bool Delete(int? id)
+        public bool Delete(string userId, int? id)
         {
             try
             {
-                context.Products.Remove(Get(id));
+                context.Carrinho.Remove(Get(userId, id));
                 context.SaveChanges();
                 return true;
             }
