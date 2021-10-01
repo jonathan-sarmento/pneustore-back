@@ -19,12 +19,12 @@ namespace pneustoreAPI.Data
 
                 string[] marca = new string[] { "Itaro", "Pirelli", "Firestone", "Continental", "Atlas", "Rinaldi", "Michelin" };
                 string[] marcaImagem = new string[] { "https://static.pneustore.com.br/medias/sys_master/root/h0c/hc8/9004334055454/itaro-logo2.png",
-                    "https://static.pneustore.com.br/medias/sys_master/images/images/he6/he0/8844547719198/brand-pirelli-lg.svg",
-                    "https://static.pneustore.com.br/medias/sys_master/images/images/hb9/hf5/8861805248542/brand-firestone-lg.svg",
+                    "https://i.imgur.com/RRgw860.png",
+                    "https://i.imgur.com/AtPMtQh.png",
                     "https://static.pneustore.com.br/medias/sys_master/root/h26/h78/9004333989918/continental-logo.png",
                     "https://static.pneustore.com.br/medias/sys_master/root/h0e/h03/9039887728670/ATLAS.png",
                     "https://static.pneustore.com.br/medias/sys_master/root/ha6/h2e/9009610326046/Rinaldi-logo.png",
-                    "https://static.pneustore.com.br/medias/sys_master/images/images/h19/h9b/8844962005022/brand-michelin-lg.svg"};
+                    "https://i.imgur.com/rqUfEtR.png"};
                 string[] imagem = new string[] {
                     "https://static.pneustore.com.br/medias/sys_master/images/images/h64/hb4/9032449261598/pneu-itaro-aro-16-it203-205-60r16-92h-1.jpg",
                     "https://static.pneustore.com.br/medias/sys_master/images/images/h58/h8c/8998750257182/pneu-itaro-aro-17-it301-215-45r17-91w-xl-1.jpg",

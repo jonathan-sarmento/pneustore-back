@@ -13,9 +13,9 @@ namespace pneustoreAPI.Controllers
             Created(Url, CustomResponse(Message ,true));
         protected NotFoundObjectResult ApiNotFound(string Message = "") =>
             NotFound(CustomResponse(Message ,false));
-        protected BadRequestObjectResult ApiBadRequest(string Message = "") =>
-            BadRequest(CustomResponse(Message ,false));
-        
+        protected BadRequestObjectResult ApiBadRequest<T>(T results, string Message = "") => 
+            BadRequest(CustomResponse(Message, false, results));
+
 
         #region Metodos privados
         APIResponse<T> CustomResponse<T>(string message, bool succeed, T results) =>
