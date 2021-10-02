@@ -50,6 +50,26 @@ namespace pneustoreAPI.Services
             return context.Carrinho.ToList();
         }
 
+
+        public bool Update(Carrinho prod)
+        {
+            try
+            {
+                if (!context.Carrinho.Any(p => p.ProductId == prod.ProductId)) throw new Exception("Produto não existe!");
+
+                context.Carrinho.Update(prod);
+                context.SaveChanges();
+                return true;
+
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
+
         public string GetCurrentUserId(string userName)
         {
             return context.Users.FirstOrDefault(u => u.UserName == userName).Id;

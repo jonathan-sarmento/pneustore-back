@@ -46,6 +46,15 @@ namespace pneustoreAPI.Controllers
         }
 
 
+        [HttpPut]
+        public IActionResult Update([FromBody] Carrinho prod)
+        {
+            return service.Update(prod) ?
+                ApiOk("Carrinho atualizado com sucesso!") :
+                ApiNotFound("Erro ao atualizar carrinho!");
+        }
+
+
         [Route("{id}")]
         [HttpDelete]
         public IActionResult Delete(int? id) =>
