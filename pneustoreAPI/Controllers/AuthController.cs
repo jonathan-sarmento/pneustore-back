@@ -36,7 +36,7 @@ namespace pneustoreAPI.Controllers
         #endregion
         [HttpPost]
         [Route("NewUser")]
-        public IActionResult NewUser(PneuUser identityUser)
+        public IActionResult NewUser(IdentityUser identityUser)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace pneustoreAPI.Controllers
         #endregion
         [HttpPost]
         [Route("Token")]
-        public IActionResult Token([FromBody] PneuUser identityUser)
+        public IActionResult Token([FromBody] IdentityUser identityUser)
         {
             try
             {

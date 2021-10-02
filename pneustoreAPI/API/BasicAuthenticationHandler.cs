@@ -36,7 +36,7 @@ namespace pneustoreAPI.API
                 var credentials = Encoding.UTF8.GetString(Convert.FromBase64String(authHeader.Parameter)).Split(":");
                 email = credentials.FirstOrDefault();
                 var password = credentials.LastOrDefault();
-                var user = await _userService.ValidateUser(new PneuUser() { Email = email, PasswordHash = password });
+                var user = await _userService.ValidateUser(new IdentityUser() { Email = email, PasswordHash = password });
                 if (!user.Succeeded) throw new UnauthorizedAccessException("Credenciais inválidas!");
             }
             catch (Exception exception)

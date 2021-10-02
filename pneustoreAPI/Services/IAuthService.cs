@@ -9,14 +9,14 @@ namespace pneustoreAPI.Services
 {
     public interface IAuthService
     {
-        public PneuUser GetUser(PneuUser identityUser);
+        public IdentityUser GetUser(IdentityUser identityUser);
 
-        public Task<SignInResult> ValidateUser(PneuUser identityUser);
+        public Task<SignInResult> ValidateUser(IdentityUser identityUser);
 
-        public Task<IdentityResult> Create(PneuUser identityUser);
+        public Task<IdentityResult> Create(IdentityUser identityUser);
 
-        public string GetUserRole(PneuUser identityUser);
+        public string GetUserRole(IdentityUser identityUser);
 
-        public string GenerateToken(PneuUser identityUser);
+        public string GenerateToken(IdentityUser identityUser);
     }
 }

@@ -16,6 +16,6 @@ namespace pneustoreAPI.Models
 
         public string UserId { get; set; }
 
-        public PneuUser User { get; set; }
+        public IdentityUser User { get; set; }
     }
 }

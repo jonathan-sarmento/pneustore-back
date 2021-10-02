@@ -15,11 +15,6 @@ namespace pneustoreAPI.Data
 
             builder.Entity<Carrinho>()
                 .HasKey(tt => new { tt.ProductId, tt.UserId });
-
-            builder.Entity<Carrinho>()
-                .HasOne(a => a.User)
-                .WithMany(d => d.Carrinho)
-                .HasForeignKey(d => d.UserId);
         }
 
         public DbSet<Product> Products { get; set; }
