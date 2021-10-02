@@ -8,7 +8,7 @@ namespace pneustoreAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
+    [AllowAnonymous]
     public class ProductController : APIBaseController
     {
         IService<Product> _service;

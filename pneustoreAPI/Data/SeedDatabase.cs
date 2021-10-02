@@ -49,7 +49,7 @@ namespace pneustoreAPI.Data
                             imagemUrl = $"{imagem[rand.Next(0, imagem.Length)]}",
                             imagemUrlMarca = $"{marcaImagem[marcaId]}",
                             marca = $"{marca[marcaId]}",
-                            preco = rand.NextDouble() * 1000
+                            preco = Math.Round(rand.NextDouble() * 1000, 2)
                         });
                     }
                 }

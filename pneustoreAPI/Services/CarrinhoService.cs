@@ -20,7 +20,7 @@ namespace pneustoreAPI.Services
         }
         public bool Create(Carrinho objeto)
         {
-            if (context.Carrinho.FirstOrDefault(c => c.Equals(objeto)) == null)
+            if (context.Carrinho.FirstOrDefault(c => c.Equals(objeto)) != null)
                 return false;
 
             try

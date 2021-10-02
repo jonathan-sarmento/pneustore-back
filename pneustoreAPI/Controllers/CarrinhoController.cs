@@ -52,7 +52,8 @@ namespace pneustoreAPI.Controllers
                ApiNotFound("Erro ao deletar carrinho!");
 
         [HttpPost]
-        public IActionResult AddCarrinho([FromBody] int produtoId) {
+        [Route("{produtoId}")]
+        public IActionResult AddCarrinho(int produtoId) {
             Carrinho carrinho = new Carrinho()
             {
                 ProductId = produtoId,
