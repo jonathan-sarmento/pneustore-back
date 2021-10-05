@@ -38,7 +38,7 @@ namespace pneustoreAPI.Data
                 string[] modelo = new string[] { "ExtremeContact DW", "IT01", "Angel GT", "AM520", "BS32", "AGILIS" };
                 string[] medida = new string[] { "265/70R16", "235/70R16", "195/75R16", "205/55R16", "205/75R16", "225/70R16", "100/80-16" };
 
-                if (!context.Products.Any())
+                if (!context.Product.Any())
                 {
                     for(int i = 0; i < contador; i++)
                     {

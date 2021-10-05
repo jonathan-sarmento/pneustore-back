@@ -19,8 +19,8 @@ namespace pneustoreAPI.Services
             throw new System.NotImplementedException();
         }
 
-        public Product Get(int? id) => _context.Products.FirstOrDefault(p => p.id == id);
+        public Product Get(int? id) => _context.Product.FirstOrDefault(p => p.id == id);
         
-        public List<Product> GetAll() => _context.Products.ToList();
+        public List<Product> GetAll() => _context.Product.ToList();
     }
 }

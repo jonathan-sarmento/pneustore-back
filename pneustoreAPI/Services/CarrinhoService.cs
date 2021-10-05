@@ -37,17 +37,17 @@ namespace pneustoreAPI.Services
 
         public Carrinho Get(string userName, int? productId)
         {
-            return context.Carrinho.FirstOrDefault(p => p.ProductId == productId && p.UserId == GetCurrentUserId(userName));
+            return context.Carrinho.Include(c => c.Product).FirstOrDefault(p => p.ProductId == productId && p.UserId == GetCurrentUserId(userName));
         }
 
         public List<Carrinho> GetFromUser(string userName)
         {
-            return context.Carrinho.Where(u => u.UserId == GetCurrentUserId(userName)).ToList();
+            return context.Carrinho.Where(u => u.UserId == GetCurrentUserId(userName)).Include(c => c.Product).ToList();
         }
 
         public List<Carrinho> GetAll()
         {
-            return context.Carrinho.ToList();
+            return context.Carrinho.Include(c => c.Product).ToList();
         }
 
 
