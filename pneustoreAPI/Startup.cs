@@ -51,7 +51,7 @@ namespace pneustoreAPI
                 c.IncludeXmlComments(xmlPath);
             });
 
-            services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("Janio")));
+            services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("Jonathan")));
 
             services.AddDefaultIdentity<IdentityUser>().AddRoles<IdentityRole>().AddEntityFrameworkStores<Context>();
 

@@ -35,7 +35,7 @@ namespace pneustoreAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         #endregion
         [HttpPost]
-        [Route("NewUser")]
+        [Route("Register")]
         public IActionResult NewUser(IdentityUser identityUser)
         {
             try
