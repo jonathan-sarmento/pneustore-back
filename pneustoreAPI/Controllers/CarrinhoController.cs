@@ -36,14 +36,6 @@ namespace pneustoreAPI.Controllers
         public IActionResult GetFromUser()
         {
             var carrinhoList = service.GetFromUser(User.Identity.Name);
-            // List<Carrinho> list = new();
-            // carrinhoList.ForEach(c => list.Add(new Carrinho()
-            // {
-            //     Quantity = c.Quantity,
-            //     ProductId = c.ProductId,
-            //     Product = c.Product,
-            //     UserId = c.UserId
-            // }));
 
             return ApiOk(carrinhoList);
         }
