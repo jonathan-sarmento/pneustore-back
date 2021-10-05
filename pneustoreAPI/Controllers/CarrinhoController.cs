@@ -32,7 +32,7 @@ namespace pneustoreAPI.Controllers
         }
 
         [HttpGet]
-        [Route("/FromUser")]
+        [Route("GetFromUser")]
         public IActionResult GetFromUser()
         {
             var carrinhoList = service.GetFromUser(User.Identity.Name);
@@ -64,7 +64,6 @@ namespace pneustoreAPI.Controllers
                 ApiNotFound("Erro ao atualizar carrinho!");
         }
 
-
         [Route("{id}")]
         [HttpDelete]
         public IActionResult Delete(int? id) =>
@@ -73,16 +72,18 @@ namespace pneustoreAPI.Controllers
                ApiNotFound("Erro ao deletar carrinho!");
 
         [HttpPost]
-        [Route("{produtoId}")]
-        public IActionResult AddCarrinho(int produtoId) {
+        [Route("Add/{produtoId}")]
+        public IActionResult AddCarrinho([FromBody, Bind(include:new string[]{"Quantity", "ProductId"})] Carrinho model) {
             Carrinho carrinho = new Carrinho()
             {
-                ProductId = produtoId,
+                Quantity = model.Quantity,
+                ProductId = model.ProductId,
                 UserId = service.GetCurrentUserId(User.Identity.Name),
-                Product = _productService.Get(produtoId)
+                Product = _productService.Get(model.ProductId)
             };
+            
             return service.Create(carrinho) ?
-                ApiCreated($"[controller]/{service.GetAll().LastOrDefault()}", "Carrinho criado com sucesso.")
+                ApiCreated($"[controller]/Add/{service.GetAll().LastOrDefault()}", "Carrinho criado com sucesso.")
                 : ApiBadRequest(carrinho, "Deu erro");
         }
     }
