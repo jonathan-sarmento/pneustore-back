@@ -85,7 +85,7 @@ namespace pneustoreAPI.Services
 
         public string GetCurrentUserId(string userName)
         {
-            return context.Users.FirstOrDefault(u => u.UserName == userName).Id;
+            return context.Users.FirstOrDefault<IdentityUser>(u => u.UserName == userName).Id;
         }
 
     }
