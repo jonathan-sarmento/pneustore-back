@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using RestSharp;
 
 namespace pneustoreAPI.Controllers
 {

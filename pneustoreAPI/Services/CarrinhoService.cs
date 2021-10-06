@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using pneustoreAPI.Data;
 using pneustoreAPI.Models;
@@ -68,12 +69,6 @@ namespace pneustoreAPI.Services
             }
         }
 
-
-
-        public string GetCurrentUserId(string userName)
-        {
-            return context.Users.FirstOrDefault(u => u.UserName == userName).Id;
-        }
         public bool Delete(string userId, int? id)
         {
             try
@@ -86,6 +81,11 @@ namespace pneustoreAPI.Services
             {
                 return false;
             }
+        }
+
+        public string GetCurrentUserId(string userName)
+        {
+            return context.Users.FirstOrDefault(u => u.UserName == userName).Id;
         }
 
     }

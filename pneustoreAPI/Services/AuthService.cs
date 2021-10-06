@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace pneustoreAPI.Services
 {
-    public class AuthService : IAuthService
+    public class AuthService : IAuthService<IdentityUser>
     {
         IConfiguration _config;
         UserManager<IdentityUser> _userManager;

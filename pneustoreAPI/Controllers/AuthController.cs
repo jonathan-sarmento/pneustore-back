@@ -19,8 +19,8 @@ namespace pneustoreAPI.Controllers
     [AllowAnonymous]
     public class AuthController : APIBaseController
     {
-        IAuthService service;
-        public AuthController(IAuthService service)
+        IAuthService<IdentityUser> service;
+        public AuthController(IAuthService<IdentityUser> service)
         {
             this.service = service;
         }

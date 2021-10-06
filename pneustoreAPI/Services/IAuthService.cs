@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace pneustoreAPI.Services
 {
-    public interface IAuthService
+    public interface IAuthService<T>
     {
-        public IdentityUser GetUser(IdentityUser identityUser);
+        public T GetUser(T identityUser);
 
-        public Task<SignInResult> ValidateUser(IdentityUser identityUser);
+        public Task<SignInResult> ValidateUser(T identityUser);
 
-        public Task<IdentityResult> Create(IdentityUser identityUser);
+        public Task<IdentityResult> Create(T identityUser);
 
-        public string GetUserRole(IdentityUser identityUser);
+        public string GetUserRole(T identityUser);
 
-        public string GenerateToken(IdentityUser identityUser);
+        public string GenerateToken(T identityUser);
     }
 }

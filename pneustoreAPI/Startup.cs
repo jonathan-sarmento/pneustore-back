@@ -51,7 +51,7 @@ namespace pneustoreAPI
                 c.IncludeXmlComments(xmlPath);
             });
 
-            services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("Jonathan")));
+            services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("Caio")));
 
             services.AddDefaultIdentity<IdentityUser>().AddRoles<IdentityRole>().AddEntityFrameworkStores<Context>();
 
@@ -61,7 +61,7 @@ namespace pneustoreAPI
             /*Seria interessante implementar autentica��o com tipos gen�ricos! 
              Pode facilitar o trabalho em caso de uma implementa��o futura
              onde � necess�rio mais atributos do usu�rio, mas n�o agora.*/
-            services.AddTransient<IAuthService, AuthService>();
+            services.AddTransient<IAuthService<IdentityUser>, AuthService>();
 
             var key = Encoding.ASCII.GetBytes(Configuration["Jwt:Key"]);
             services.AddAuthentication(x =>
