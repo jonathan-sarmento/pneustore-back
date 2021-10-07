@@ -9,7 +9,7 @@ namespace pneustoreAPI.Services
 {
     public interface IAuthService<T>
     {
-        public T GetUser(T identityUser);
+        public T GetUser(string userName, T identityUser);
 
         public Task<SignInResult> ValidateUser(T identityUser);
 
@@ -18,5 +18,6 @@ namespace pneustoreAPI.Services
         public string GetUserRole(T identityUser);
 
         public string GenerateToken(T identityUser);
+        object GetUser(string userName, string passwordHash);
     }
 }

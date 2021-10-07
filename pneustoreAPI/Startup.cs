@@ -23,8 +23,10 @@ namespace pneustoreAPI
     {
         public Startup(IConfiguration configuration)
         {
+            
             Configuration = configuration;
         }
+       
 
         public IConfiguration Configuration { get; }
 
@@ -51,8 +53,12 @@ namespace pneustoreAPI
                 c.IncludeXmlComments(xmlPath);
             });
 
-            services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("Caio")));
-
+            services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("Pedro")));
+            services.AddAuthentication().AddFacebook(facebookOptions =>
+            {
+                facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
+                facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+            });
             services.AddDefaultIdentity<IdentityUser>().AddRoles<IdentityRole>().AddEntityFrameworkStores<Context>();
 
             services.AddTransient<IService<Product>, ProductService>();
@@ -62,6 +68,7 @@ namespace pneustoreAPI
              Pode facilitar o trabalho em caso de uma implementa��o futura
              onde � necess�rio mais atributos do usu�rio, mas n�o agora.*/
             services.AddTransient<IAuthService<IdentityUser>, AuthService>();
+            
 
             var key = Encoding.ASCII.GetBytes(Configuration["Jwt:Key"]);
             services.AddAuthentication(x =>
@@ -104,6 +111,8 @@ namespace pneustoreAPI
                 
             app.UseAuthentication();
             app.UseAuthorization();
+           
+           
 
             app.UseEndpoints(endpoints =>
             {

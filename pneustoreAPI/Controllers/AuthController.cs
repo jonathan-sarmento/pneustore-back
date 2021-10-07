@@ -24,6 +24,7 @@ namespace pneustoreAPI.Controllers
         {
             this.service = service;
         }
+        
 
         #region sign up swagger comments
         /// <summary>
@@ -62,6 +63,7 @@ namespace pneustoreAPI.Controllers
         #endregion
         [HttpPost]
         [Route("Token")]
+        
         public IActionResult Token([FromBody] IdentityUser identityUser)
         {
             try
@@ -73,5 +75,6 @@ namespace pneustoreAPI.Controllers
                 return ApiBadRequest(exception.Message);
             }
         }
+      
     }
 }
