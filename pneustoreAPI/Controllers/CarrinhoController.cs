@@ -34,7 +34,7 @@ namespace pneustoreAPI.Controllers
         {
             var carrinhoList = service.GetFromUser(User.Identity.Name);
 
-            return ApiOk(carrinhoList);
+            return carrinhoList.Count == 0 ? ApiBadRequest(carrinhoList, "Não há itens no carrinho!") : ApiOk(carrinhoList);
         }
 
         [HttpGet]
@@ -73,5 +73,12 @@ namespace pneustoreAPI.Controllers
                 ApiCreated($"[controller]/Add/{service.GetAll().LastOrDefault()}", "Carrinho criado com sucesso.")
                 : ApiBadRequest(carrinho, "Deu erro");
         }
+
+        [HttpGet, Route("TotalPreco")]
+        public IActionResult GetTotalPreco() { 
+           var total = service.TotalCarrinho(User.Identity.Name);
+            return total > 0 ? ApiOk(total) : ApiBadRequest("Não há itens no carrinho!");
+        }
+
     }
 }
