@@ -43,7 +43,13 @@ namespace pneustoreAPI.Services
 
         public List<Carrinho> GetFromUser(string userName)
         {
-            return context.Carrinho.Where(u => u.UserId == GetCurrentUserId(userName)).Include(c => c.Product).ToList();
+            try {
+                var userId = GetCurrentUserId(userName);
+                return context.Carrinho.Where(u => u.UserId == userId).Include(c => c.Product).ToList();
+            }
+            catch { 
+                return null;
+            }
         }
 
         public List<Carrinho> GetAll()
@@ -85,8 +91,13 @@ namespace pneustoreAPI.Services
 
         public string GetCurrentUserId(string userName)
         {
-            return context.Users.FirstOrDefault<IdentityUser>(u => u.UserName == userName).Id;
+            return context.Users.FirstOrDefault(u => u.UserName == userName).Id;
         }
 
+        public double TotalCarrinho(string userName)
+        {
+            var carrinho = GetFromUser(userName);
+            return carrinho.Sum(p => p.Product.preco);
+        }
     }
 }
