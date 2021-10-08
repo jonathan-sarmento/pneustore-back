@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using pneustoreapi.Models;
 using pneustoreAPI.Models;
 using pneustoreAPI.Services;
 using System;
@@ -17,8 +18,8 @@ namespace pneustoreAPI.API
 {
     public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
-        readonly IAuthService<IdentityUser> _userService;
-        public BasicAuthenticationHandler(IAuthService<IdentityUser> userService,
+        readonly IAuthService<PneuUser> _userService;
+        public BasicAuthenticationHandler(IAuthService<PneuUser> userService,
             IOptionsMonitor<AuthenticationSchemeOptions> options,
             ILoggerFactory logger,
             UrlEncoder encoder,
@@ -36,7 +37,7 @@ namespace pneustoreAPI.API
                 var credentials = Encoding.UTF8.GetString(Convert.FromBase64String(authHeader.Parameter)).Split(":");
                 email = credentials.FirstOrDefault();
                 var password = credentials.LastOrDefault();
-                var user = await _userService.ValidateUser(new IdentityUser() { Email = email, PasswordHash = password });
+                var user = await _userService.ValidateUser(new PneuUser() { Email = email, PasswordHash = password });
                 if (!user.Succeeded) throw new UnauthorizedAccessException("Credenciais inválidas!");
             }
             catch (Exception exception)

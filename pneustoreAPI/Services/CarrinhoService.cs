@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using pneustoreapi.Models;
 using pneustoreAPI.Data;
 using pneustoreAPI.Models;
 using System;
@@ -13,8 +14,8 @@ namespace pneustoreAPI.Services
     public class CarrinhoService
     {
         Context context;
-        public readonly UserManager<IdentityUser> userManager;
-        public CarrinhoService(Context context, UserManager<IdentityUser> _userManager)
+        public readonly UserManager<PneuUser> userManager;
+        public CarrinhoService(Context context, UserManager<PneuUser> _userManager)
         {
             this.context = context;
             userManager = _userManager;

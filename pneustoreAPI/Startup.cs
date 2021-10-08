@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using pneustoreapi.Models;
 using pneustoreAPI.API;
 using pneustoreAPI.Data;
 using pneustoreAPI.Models;
@@ -57,17 +58,17 @@ namespace pneustoreAPI
             });
 
             services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("Pedro")));
-            services.AddAuthentication().AddFacebook(facebookOptions =>
-            {
-                facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
-                facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
-            });
-            services.AddDefaultIdentity<IdentityUser>().AddRoles<IdentityRole>().AddEntityFrameworkStores<Context>();
+            //services.AddAuthentication().AddFacebook(facebookOptions =>
+            //{
+            //    facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
+            //    facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+            //});
+            services.AddDefaultIdentity<PneuUser>().AddRoles<IdentityRole>().AddEntityFrameworkStores<Context>();
 
             services.AddTransient<IService<Product>, ProductService>();
             services.AddTransient<IService<Estabelecimento>, EstabelecimentoService>();
             services.AddTransient<CarrinhoService>();
-            services.AddTransient<IAuthService<IdentityUser>, AuthService>();
+            services.AddTransient<IAuthService<PneuUser>, AuthService>();
             
 
             var key = Encoding.ASCII.GetBytes(Configuration["Jwt:Key"]);

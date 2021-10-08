@@ -2,9 +2,14 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using pneustoreapi.Models;
+using pneustoreAPI.Models;
 using pneustoreAPI.Services;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mime;
+using System.Threading.Tasks;
 
 namespace pneustoreAPI.Controllers
 {
@@ -15,8 +20,8 @@ namespace pneustoreAPI.Controllers
     [AllowAnonymous]
     public class AuthController : APIBaseController
     {
-        IAuthService<IdentityUser> service;
-        public AuthController(IAuthService<IdentityUser> service)
+        IAuthService<PneuUser> service;
+        public AuthController(IAuthService<PneuUser> service)
         {
             this.service = service;
         }
@@ -33,7 +38,7 @@ namespace pneustoreAPI.Controllers
         #endregion
         [HttpPost]
         [Route("Register")]
-        public IActionResult NewUser(IdentityUser identityUser)
+        public IActionResult NewUser(PneuUser identityUser)
         {
             try
             {
@@ -60,7 +65,7 @@ namespace pneustoreAPI.Controllers
         [HttpPost]
         [Route("Token")]
         
-        public IActionResult Token([FromBody] IdentityUser identityUser)
+        public IActionResult Token([FromBody] PneuUser identityUser)
         {
             try
             {
@@ -71,6 +76,6 @@ namespace pneustoreAPI.Controllers
                 return ApiBadRequest(exception.Message);
             }
         }
-  
+      
     }
 }
