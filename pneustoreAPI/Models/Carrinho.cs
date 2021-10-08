@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using pneustoreapi.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,7 +21,7 @@ namespace pneustoreAPI.Models
         public string UserId { get; set; }
         
         [JsonIgnore]
-        public IdentityUser User { get; set; }
+        public PneuUser User { get; set; }
 
     }
 
