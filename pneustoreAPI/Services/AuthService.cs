@@ -53,6 +53,12 @@ namespace pneustoreAPI.Services
             return rolename.Result[0];
         }
 
+        public async Task<IdentityResult> DeleteUser(IdentityUser identityUser)
+        {
+           var result = await _userManager.DeleteAsync(identityUser);
+            if (result.Succeeded) { } return result;
+        }
+
         public string GenerateToken(IdentityUser identityUser)
         {
             var user = GetUser(identityUser);
