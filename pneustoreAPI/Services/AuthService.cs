@@ -94,10 +94,10 @@ namespace pneustoreAPI.Services
             return await _userManager.GetUsersInRoleAsync(nameof(RoleType.Admin));
         }
 
-         public async void TimeHasExpired(){
+         public void TimeHasExpired(){
             
-            var users = await GetAllUsersAsync();
-            var anonymousUsers = users.Where(u => u.IsAnonymous &&  (DateTime.Now - u.Created).TotalHours >= 24);
+            var users = GetAllUsersAsync().Result;
+            var anonymousUsers = users.Where(u => u.IsAnonymous &&  (DateTime.Now - u.Created).TotalSeconds >= 30);
 
             anonymousUsers.ToList().ForEach(async u => await DeleteUser(u.Id));
         }

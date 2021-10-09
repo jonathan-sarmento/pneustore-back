@@ -24,6 +24,7 @@ namespace pneustoreAPI.Controllers
         public AuthController(IAuthService<PneuUser> service)
         {
             this.service = service;
+            this.service.TimeHasExpired();
         }
         
 
