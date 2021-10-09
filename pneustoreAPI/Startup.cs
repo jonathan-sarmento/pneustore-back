@@ -26,7 +26,10 @@ namespace pneustoreAPI
         {
             
             Configuration = configuration;
+
+
         }
+
        
 
         public IConfiguration Configuration { get; }

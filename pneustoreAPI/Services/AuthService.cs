@@ -81,5 +81,16 @@ namespace pneustoreAPI.Services
             return tokenHandler.WriteToken(token);
         }
 
+        public async Task<IdentityResult> DeleteUser(PneuUser identityUser)
+        {
+            var result = await _userManager.DeleteAsync(identityUser);
+            if (result.Succeeded) { }
+            return result;
+        }
+
+         public void TimeHasExpired(){
+
+
+        }
     }
 }
