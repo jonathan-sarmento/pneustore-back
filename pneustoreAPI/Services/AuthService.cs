@@ -40,6 +40,8 @@ namespace pneustoreAPI.Services
         }
         public async Task<IdentityResult> Create(PneuUser identityUser)
         {
+            identityUser.Created = DateTime.Now;
+    
             var result = await _userManager.CreateAsync(identityUser, identityUser.PasswordHash);
             if (result.Succeeded)
             {
@@ -85,6 +87,11 @@ namespace pneustoreAPI.Services
             var result = await _userManager.DeleteAsync(user);
             if (result.Succeeded) { }
             return result;
+        }
+
+         public void TimeHasExpired(){
+
+
         }
     }
 }
