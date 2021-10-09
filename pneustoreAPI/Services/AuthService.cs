@@ -99,7 +99,7 @@ namespace pneustoreAPI.Services
             var users = await GetAllUsersAsync();
             var anonymousUsers = users.Where(u => u.IsAnonymous &&  (DateTime.Now - u.Created).TotalHours >= 24);
 
-            anonymousUsers.ToList().ForEach(async u => await DeleteUser(u));
+            anonymousUsers.ToList().ForEach(async u => await DeleteUser(u.Id));
         }
     }
 }
