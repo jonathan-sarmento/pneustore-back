@@ -14,7 +14,7 @@ namespace pneustoreAPI.Services
         public Task<SignInResult> ValidateUser(T identityUser);
 
         public Task<IdentityResult> Create(T identityUser);
-        public Task<IdentityResult> DeleteUser(T identityUser);
+        public Task<IdentityResult> DeleteUser(string id);
 
         public string GetUserRole(T identityUser);
 

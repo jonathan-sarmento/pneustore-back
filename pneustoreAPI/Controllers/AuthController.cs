@@ -76,6 +76,20 @@ namespace pneustoreAPI.Controllers
                 return ApiBadRequest(exception.Message);
             }
         }
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [HttpPost]
+        [Route("DeleteUser")]
+        public IActionResult DeleteUser(string id, Exception exception)
+        {
+
+            if (id == null)
+            {
+                return ApiBadRequest(exception.Message);
+            }
+            return ApiOk(service.DeleteUser(id));
+            
+        }
       
     }
 }
