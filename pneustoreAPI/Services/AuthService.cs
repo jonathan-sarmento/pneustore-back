@@ -88,9 +88,17 @@ namespace pneustoreAPI.Services
             return result;
         }
 
-         public void TimeHasExpired(){
+        public async Task<IList<PneuUser>> GetAllUsersAsync(){
 
+            return await _userManager.GetUsersInRoleAsync(nameof(RoleType.Admin));
+        }
 
+         public async void TimeHasExpired(){
+            
+            var users = await GetAllUsersAsync();
+            var anonymousUsers = users.Where(u => u.IsAnonymous &&  (DateTime.Now - u.Created).TotalHours >= 24);
+
+            anonymousUsers.ToList().ForEach(async u => await DeleteUser(u));
         }
     }
 }

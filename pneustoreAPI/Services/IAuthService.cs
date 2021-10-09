@@ -19,5 +19,7 @@ namespace pneustoreAPI.Services
         public string GetUserRole(T identityUser);
 
         public string GenerateToken(T identityUser);
+
+        void TimeHasExpired();
     }
 }

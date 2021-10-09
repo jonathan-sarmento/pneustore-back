@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using pneustoreapi.Models;
 using pneustoreAPI.Models;
 using pneustoreAPI.Services;
 using System.Linq;
@@ -16,10 +17,14 @@ namespace pneustoreAPI.Controllers
     {
         CarrinhoService service;
         IService<Product> _productService;
-        public CarrinhoController(CarrinhoService service, IService<Product> productService)
+        IAuthService<PneuUser> _authService;
+        public CarrinhoController(CarrinhoService service, IService<Product> productService, IAuthService<PneuUser> authService)
         {
             this.service = service;
             _productService = productService;
+            _authService = authService;
+
+            _authService.TimeHasExpired();
         }
 
         [HttpGet]
