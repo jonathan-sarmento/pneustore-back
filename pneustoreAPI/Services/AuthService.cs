@@ -97,6 +97,7 @@ namespace pneustoreAPI.Services
          public void TimeHasExpired(){
             
             var users = GetAllUsersAsync().Result;
+
             var anonymousUsers = users.Where(u => u.IsAnonymous &&  (DateTime.Now - u.Created).TotalSeconds >= 30);
 
             anonymousUsers.ToList().ForEach(async u => await DeleteUser(u.Id));
