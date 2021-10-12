@@ -81,10 +81,10 @@ namespace pneustoreAPI.Services
             return tokenHandler.WriteToken(token);
         }
 
-        public async Task<IdentityResult> DeleteUser(string id)
+        public IdentityResult DeleteUser(string id)
         {
-            var user = await _userManager.FindByIdAsync(id);
-            var result = await _userManager.DeleteAsync(user);
+            var user = _userManager.FindByIdAsync(id).Result;
+            var result = _userManager.DeleteAsync(user).Result;
             if (result.Succeeded) { }
             return result;
         }
@@ -99,7 +99,8 @@ namespace pneustoreAPI.Services
             var users = GetAllUsersAsync().Result;
             var anonymousUsers = users.Where(u => u.IsAnonymous &&  (DateTime.Now - u.Created).TotalSeconds >= 30);
 
-            anonymousUsers.ToList().ForEach(async u => await DeleteUser(u.Id));
+            if (anonymousUsers.Any())
+                anonymousUsers.ToList().ForEach(u => DeleteUser(u.Id));
         }
     }
 }
