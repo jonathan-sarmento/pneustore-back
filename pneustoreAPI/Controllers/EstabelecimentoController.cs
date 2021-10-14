@@ -9,8 +9,8 @@ namespace pneustoreAPI.Controllers
     [Route("[controller]")]
     public class EstabelecimentoController : APIBaseController
     {
-        IService<Estabelecimento> _service;
-        public EstabelecimentoController(IService<Estabelecimento> service)
+        EstabelecimentoService _service;
+        public EstabelecimentoController(EstabelecimentoService service)
         {
             _service = service;
         }
@@ -33,5 +33,27 @@ namespace pneustoreAPI.Controllers
             _service.Get(id) != null ?
                 ApiOk(_service.Get(id)) :
                 ApiNotFound($"Estabelecimento com o id:{id} não existe.");
+
+        [Route("Estoque/{id}"), HttpGet]
+        public IActionResult GetEstoque(int? id) {
+            var estoque = _service.GetEstoque(id);
+            return estoque != null ? ApiOk(estoque) : ApiNotFound($"Não há estoque para o produto com id {id}.");
+        }
+
+        [HttpPost]
+        public IActionResult CreateEstoque([FromBody] EstabPneu estoque)
+        {
+            return _service.CreateEstoque(estoque) ? 
+                ApiOk("Estoque criado com sucesso!") :
+                ApiBadRequest(estoque, "Não foi possível criar o produto!");
+        }
+
+        [HttpPost]
+        public IActionResult Create([FromBody] Estabelecimento estabelecimento)
+        {
+            return _service.Create(estabelecimento) ? 
+                ApiOk("Estabelecimento criado com sucesso!") : 
+                ApiBadRequest("Não foi possível criar o estabelecimento.");
+        }
     }
 }
