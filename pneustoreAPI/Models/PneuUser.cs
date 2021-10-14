@@ -8,5 +8,7 @@ namespace pneustoreapi.Models
         public bool IsAnonymous { get; set; }
 
         public DateTime Created { get; set; }
+
+        public string IP { get; set; }
     }
 }

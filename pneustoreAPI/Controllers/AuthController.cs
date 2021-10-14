@@ -21,10 +21,12 @@ namespace pneustoreAPI.Controllers
     public class AuthController : APIBaseController
     {
         IAuthService<PneuUser> service;
-        public AuthController(IAuthService<PneuUser> service)
+        CarrinhoService _carrinhoService;
+        public AuthController(IAuthService<PneuUser> service, CarrinhoService carrinhoService)
         {
             this.service = service;
             this.service.TimeHasExpired();
+            _carrinhoService = carrinhoService;
         }
         
 
@@ -45,6 +47,19 @@ namespace pneustoreAPI.Controllers
             {
                 IdentityResult result = service.Create(identityUser).Result;
                 if (!result.Succeeded) throw new Exception();
+
+                // Verifica se o ususário não é anonimo e faz a migração dos carrinhos para o usuario real
+                if(!identityUser.IsAnonymous && identityUser.UserName != identityUser.IP){
+                    var listCarrinhos = _carrinhoService.GetFromUser(identityUser.IP);
+                    
+                    listCarrinhos.ForEach(c => _carrinhoService.Update(new Carrinho()
+                    {
+                        Quantity = c.Quantity,
+                        ProductId = c.ProductId,
+                        UserId = identityUser.UserName
+                    }));
+                }
+
                 identityUser.PasswordHash = "";
                 return ApiOk(identityUser);
             }

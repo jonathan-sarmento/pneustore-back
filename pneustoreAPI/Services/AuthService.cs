@@ -32,6 +32,13 @@ namespace pneustoreAPI.Services
             return valid.Result.Succeeded ? user : null;
         }
 
+        public PneuUser GetUserById(string id)
+        {
+            var user = _userManager.FindByNameAsync(id).Result;
+
+            return user;
+        }
+
         public async Task<SignInResult> ValidateUser(PneuUser identityUser)
         {
             var user = await _userManager.FindByNameAsync(identityUser.UserName);
@@ -103,5 +110,6 @@ namespace pneustoreAPI.Services
             if (anonymousUsers.Any())
                 anonymousUsers.ToList().ForEach(u => DeleteUser(u.Id));
         }
+
     }
 }
