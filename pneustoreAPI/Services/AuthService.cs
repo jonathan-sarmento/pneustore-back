@@ -71,7 +71,7 @@ namespace pneustoreAPI.Services
                     new Claim(ClaimTypes.Role, role),
                     new Claim(ClaimTypes.NameIdentifier, user.Id)
                 }),
-                Expires = user.IsAnonymous ? DateTime.UtcNow.AddMinutes(0.5) : DateTime.UtcNow.AddHours(2),
+                Expires = user.IsAnonymous ? DateTime.UtcNow.AddMinutes(10) : DateTime.UtcNow.AddHours(2),
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(key),
                     SecurityAlgorithms.HmacSha256Signature)
@@ -98,7 +98,7 @@ namespace pneustoreAPI.Services
             
             var users = GetAllUsersAsync().Result;
 
-            var anonymousUsers = users.Where(u => u.IsAnonymous &&  (DateTime.Now - u.Created).TotalSeconds >= 30);
+            var anonymousUsers = users.Where(u => u.IsAnonymous &&  (DateTime.Now - u.Created).TotalMinutes >= 10);
 
             if (anonymousUsers.Any())
                 anonymousUsers.ToList().ForEach(u => DeleteUser(u.Id));

@@ -16,12 +16,17 @@ namespace pneustoreAPI.Data
 
             builder.Entity<Carrinho>()
                 .HasKey(tt => new { tt.ProductId, tt.UserId });
+
+            builder.Entity<EstabPneu>()
+                .HasKey(tt => new { tt.ProductId, tt.EstabelecimentoId });
         }
 
         public DbSet<Product> Product { get; set; }
 
-        public DbSet<Product> Estabelecimentos { get; set; }
+        public DbSet<Estabelecimento> Estabelecimentos { get; set; }
 
         public DbSet<Carrinho> Carrinho { get; set; }
+
+        public DbSet<EstabPneu> EstabPneu { get; set; }
     }
 }
