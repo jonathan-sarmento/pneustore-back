@@ -14,7 +14,7 @@ namespace pneustoreAPI.Services
     public class CarrinhoService
     {
         Context context;
-        public readonly UserManager<PneuUser> userManager;
+        private readonly UserManager<PneuUser> userManager;
         public CarrinhoService(Context context, UserManager<PneuUser> _userManager)
         {
             this.context = context;
