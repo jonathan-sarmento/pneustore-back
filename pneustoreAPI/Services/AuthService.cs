@@ -103,5 +103,6 @@ namespace pneustoreAPI.Services
             if (anonymousUsers.Any())
                 anonymousUsers.ToList().ForEach(u => DeleteUser(u.Id));
         }
+
     }
 }

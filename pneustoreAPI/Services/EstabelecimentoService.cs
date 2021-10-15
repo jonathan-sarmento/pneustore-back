@@ -51,7 +51,7 @@ namespace pneustoreAPI.Services
         {
             try
             {
-                if (!context.EstabPneu.Any(p => p.ProductId == objeto.ProductId)) throw new Exception("Produto não existe!");
+                if (!context.EstabPneu.Any(p => p.ProductId == objeto.ProductId)) throw new Exception("Produto nï¿½o existe!");
 
                 if(objeto.Quantity == 0)
                 {
