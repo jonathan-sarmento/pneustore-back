@@ -66,7 +66,7 @@ namespace pneustoreAPI
             services.AddDefaultIdentity<PneuUser>().AddRoles<IdentityRole>().AddEntityFrameworkStores<Context>();
 
             services.AddTransient<IService<Product>, ProductService>();
-            services.AddTransient<IService<Estabelecimento>, EstabelecimentoService>();
+            services.AddTransient<EstabelecimentoService>();
             services.AddTransient<CarrinhoService>();
             services.AddTransient<IAuthService<PneuUser>, AuthService>();
             

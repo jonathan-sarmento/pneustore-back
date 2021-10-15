@@ -32,13 +32,6 @@ namespace pneustoreAPI.Services
             return valid.Result.Succeeded ? user : null;
         }
 
-        public PneuUser GetUserByUsername(string username)
-        {
-            var user = _userManager.FindByNameAsync(username).Result;
-
-            return user;
-        }
-
         public async Task<SignInResult> ValidateUser(PneuUser identityUser)
         {
             var user = await _userManager.FindByNameAsync(identityUser.UserName);

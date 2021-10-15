@@ -6,7 +6,7 @@ using pneustoreAPI.Models;
 
 namespace pneustoreAPI.Services
 {
-    public class EstabelecimentoService : IService<Estabelecimento>
+    public class EstabelecimentoService
     {
         Context context;
         public EstabelecimentoService(Context context)
