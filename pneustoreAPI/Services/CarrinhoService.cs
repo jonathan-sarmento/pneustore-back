@@ -25,20 +25,32 @@ namespace pneustoreAPI.Services
             if (context.Carrinho.FirstOrDefault(c => c.Equals(objeto)) != null)
                 return false;
 
-            //EstabPneu estoqueProduto = context.EstabPneu.FirstOrDefault(p => p.ProductId == objeto.ProductId);
+            List<EstabPneu> estoqueProduto = context.EstabPneu.Where(p => p.ProductId == objeto.ProductId).ToList();
+            EstabPneu estoqueAtualizado = new EstabPneu();
 
-            //if (estoqueProduto == null) return false;
+            if (estoqueProduto == null) return false;
 
-            //estoqueProduto.Quantity -= objeto == null ? 0 : objeto.Quantity;
-
-            //if (estoqueProduto.Quantity <= 0) return false;
+            foreach(EstabPneu estoque in estoqueProduto)
+            {
+                if(estoque.Quantity - objeto.Quantity >= 0)
+                {
+                    estoqueAtualizado = estoque;
+                    estoqueAtualizado.Quantity = estoque.Quantity - objeto.Quantity;
+                    break;
+                }
+            }
 
             try
             {
-                //context.EstabPneu.Update(estoqueProduto);
-                context.Carrinho.Add(objeto);
-                context.SaveChanges();
-                return true;
+                if (estoqueAtualizado.Quantity >= 0 && estoqueAtualizado.ProductId != 0)
+                {
+                    context.EstabPneu.Update(estoqueAtualizado);
+                    context.Carrinho.Add(objeto);
+                    context.SaveChanges();
+                    return true;
+                }
+                else  
+                    return false;
             }
             catch
             {
@@ -89,6 +101,10 @@ namespace pneustoreAPI.Services
         {
             try
             {
+                Carrinho carrinho = Get(userId, id);
+                EstabPneu estoque = context.EstabPneu.FirstOrDefault(p => p.ProductId == id && p.Quantity < carrinho.Quantity);
+                estoque.Quantity += carrinho.Quantity;
+                context.EstabPneu.Update(estoque);
                 context.Carrinho.Remove(Get(userId, id));
                 context.SaveChanges();
                 return true;

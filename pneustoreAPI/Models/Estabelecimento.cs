@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace pneustoreAPI.Models
 {
     public class Estabelecimento
@@ -12,6 +14,7 @@ namespace pneustoreAPI.Models
 
         public string imagemUrl { get; set; }
 
+        public List<Product> lista { get; set; }
 
     }
 }
