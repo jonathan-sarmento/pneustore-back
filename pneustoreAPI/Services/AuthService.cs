@@ -32,9 +32,9 @@ namespace pneustoreAPI.Services
             return valid.Result.Succeeded ? user : null;
         }
 
-        public PneuUser GetUserById(string id)
+        public PneuUser GetUserByUsername(string username)
         {
-            var user = _userManager.FindByNameAsync(id).Result;
+            var user = _userManager.FindByNameAsync(username).Result;
 
             return user;
         }

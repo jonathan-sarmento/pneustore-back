@@ -71,7 +71,7 @@ namespace pneustoreAPI.Controllers
             {
                 Quantity = model.Quantity,
                 ProductId = model.ProductId,
-                UserId = service.GetCurrentUserId(User.Identity.Name)
+                UserId = service.GetCurrentUserByUsername(User.Identity.Name).Id
             };
 
             return service.Create(carrinho) ?

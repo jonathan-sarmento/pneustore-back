@@ -11,7 +11,7 @@ namespace pneustoreAPI.Services
     {
         public T GetUser(T identityUser);
 
-        T GetUserById(string id);
+        T GetUserByUsername(string username);
 
         public Task<SignInResult> ValidateUser(T identityUser);
 

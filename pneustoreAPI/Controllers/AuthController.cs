@@ -52,12 +52,13 @@ namespace pneustoreAPI.Controllers
                 if(!identityUser.IsAnonymous && identityUser.UserName != identityUser.IP){
                     var listCarrinhos = _carrinhoService.GetFromUser(identityUser.IP);
                     
-                    listCarrinhos.ForEach(c => _carrinhoService.Update(new Carrinho()
-                    {
-                        Quantity = c.Quantity,
-                        ProductId = c.ProductId,
-                        UserId = identityUser.UserName
-                    }));
+                    if(listCarrinhos.Any())
+                        listCarrinhos.ForEach(c => _carrinhoService.Update(new Carrinho()
+                        {
+                            Quantity = c.Quantity,
+                            ProductId = c.ProductId,
+                            UserId = identityUser.UserName
+                        }));
                 }
 
                 identityUser.PasswordHash = "";
