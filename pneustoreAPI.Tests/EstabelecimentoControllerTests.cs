@@ -30,7 +30,7 @@ namespace EstabelecimentoControllerTest
         [Fact]
         public void GetEstabelecimento_Returns_The_Correct_Estabelecimento()
         {
-            var estabelecimentoService = A.Fake<IService<Estabelecimento>>();
+            var estabelecimentoService = A.Fake<EstabelecimentoService>();
             A.CallTo(() => estabelecimentoService.GetAll()).Returns(fakeEstabelecimento);
             var controller = new EstabelecimentoController(estabelecimentoService);
 
@@ -54,7 +54,7 @@ namespace EstabelecimentoControllerTest
         [InlineData(14, "Estabelecimento com o id:14 não existe.", false)]
         public void GetProduct_Return_Product_By_Id(int? id, string message = "", bool succeed = true)
         {
-            var estabelecimentoService = A.Fake<IService<Estabelecimento>>();
+            var estabelecimentoService = A.Fake<EstabelecimentoService>();
             A.CallTo(() => estabelecimentoService.Get(id)).Returns(fakeEstabelecimento.Find(e => e.id == id));
 
             var controller = new EstabelecimentoController(estabelecimentoService);

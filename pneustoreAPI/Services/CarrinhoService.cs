@@ -25,8 +25,14 @@ namespace pneustoreAPI.Services
             if (context.Carrinho.FirstOrDefault(c => c.Equals(objeto)) != null)
                 return false;
 
+            EstabPneu estoqueProduto = context.EstabPneu.FirstOrDefault(p => p.ProductId == objeto.ProductId);
+            estoqueProduto.Quantity -= objeto.Quantity;
+
+            if (estoqueProduto.Quantity <= 0) return false;
+
             try
             {
+                context.EstabPneu.Update(estoqueProduto);
                 context.Carrinho.Add(objeto);
                 context.SaveChanges();
                 return true;

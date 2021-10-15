@@ -41,6 +41,7 @@ namespace pneustoreAPI.Controllers
         }
 
         [HttpPost]
+        [Route("Estoque")]
         public IActionResult CreateEstoque([FromBody] EstabPneu estoque)
         {
             return _service.CreateEstoque(estoque) ? 
@@ -49,9 +50,10 @@ namespace pneustoreAPI.Controllers
         }
 
         [HttpPost]
+        [Route("Estabelecimento")]
         public IActionResult Create([FromBody] Estabelecimento estabelecimento)
-        {
-            return _service.Create(estabelecimento) ? 
+            {
+                return _service.Create(estabelecimento) ? 
                 ApiOk("Estabelecimento criado com sucesso!") : 
                 ApiBadRequest("Não foi possível criar o estabelecimento.");
         }
