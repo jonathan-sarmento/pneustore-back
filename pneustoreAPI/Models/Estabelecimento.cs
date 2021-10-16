@@ -10,11 +10,6 @@ namespace pneustoreAPI.Models
 
         public string endereco { get; set; }
 
-        public double distancia { get; set; }
-
         public string imagemUrl { get; set; }
-
-        public List<Product> lista { get; set; }
-
     }
 }
