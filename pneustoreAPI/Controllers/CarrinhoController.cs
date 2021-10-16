@@ -15,12 +15,12 @@ namespace pneustoreAPI.Controllers
     [Authorize]
     public class CarrinhoController : APIBaseController
     {
-        CarrinhoService service;
-        IService<Product> _productService;
-        IAuthService<PneuUser> _authService;
+        private readonly CarrinhoService _service;
+        private readonly IService<Product> _productService;
+        private readonly IAuthService<PneuUser> _authService;
         public CarrinhoController(CarrinhoService service, IService<Product> productService, IAuthService<PneuUser> authService)
         {
-            this.service = service;
+            _service = service;
             _productService = productService;
             _authService = authService;
 
@@ -30,14 +30,14 @@ namespace pneustoreAPI.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return ApiOk(service.GetAll());
+            return ApiOk(_service.GetAll());
         }
 
         [HttpGet]
         [Route("GetFromUser")]
         public IActionResult GetFromUser()
         {
-            var carrinhoList = service.GetFromUser(User.Identity.Name);
+            var carrinhoList = _service.GetFromUser(User.Identity.Name);
 
             return carrinhoList.Count == 0 ? ApiBadRequest(carrinhoList, "Não há itens no carrinho!") : ApiOk(carrinhoList);
         }
@@ -46,14 +46,14 @@ namespace pneustoreAPI.Controllers
         [Route("{productId}")]
         public IActionResult Index(int? productId)
         {
-            return ApiOk(service.Get(User.Identity.Name, productId));
+            return ApiOk(_service.Get(User.Identity.Name, productId));
         }
 
 
         [HttpPut]
         public IActionResult Update([FromBody] Carrinho prod)
         {
-            return service.Update(prod) ?
+            return _service.Update(prod) ?
                 ApiOk("Carrinho atualizado com sucesso!") :
                 ApiNotFound("Erro ao atualizar carrinho!");
         }
@@ -61,7 +61,7 @@ namespace pneustoreAPI.Controllers
         [Route("{id}")]
         [HttpDelete]
         public IActionResult Delete(int? id) =>
-         service.Delete(User.Identity.Name, id) ?
+         _service.Delete(User.Identity.Name, id) ?
                ApiOk("Carrinho deletado com sucesso!") :
                ApiNotFound("Erro ao deletar carrinho!");
 
@@ -71,17 +71,17 @@ namespace pneustoreAPI.Controllers
             {
                 Quantity = model.Quantity,
                 ProductId = model.ProductId,
-                UserId = service.GetCurrentUserByUsername(User.Identity.Name).Id
+                UserId = _service.GetCurrentUserByUsername(User.Identity.Name).Id
             };
 
-            return service.Create(carrinho) ?
-                ApiCreated($"[controller]/Add/{service.GetAll().LastOrDefault()}", "Carrinho criado com sucesso.")
+            return _service.Create(carrinho) ?
+                ApiCreated($"[controller]/Add/{_service.GetAll().LastOrDefault()}", "Carrinho criado com sucesso.")
                 : ApiBadRequest(carrinho, "Deu erro");
         }
 
         [HttpGet, Route("TotalPreco")]
         public IActionResult GetTotalPreco() { 
-           var total = service.TotalCarrinho(User.Identity.Name);
+           var total = _service.TotalCarrinho(User.Identity.Name);
             return total > 0 ? ApiOk(total) : ApiBadRequest("Não há itens no carrinho!");
         }
 
