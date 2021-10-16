@@ -13,19 +13,19 @@ namespace pneustoreAPI.Services
 {
     public class CarrinhoService
     {
-        Context context;
-        private readonly UserManager<PneuUser> userManager;
-        public CarrinhoService(Context context, UserManager<PneuUser> _userManager)
+        private readonly Context _context;
+        private readonly UserManager<PneuUser> _userManager;
+        public CarrinhoService(Context context, UserManager<PneuUser> userManager)
         {
-            this.context = context;
-            userManager = _userManager;
+            _context = context;
+            _userManager = userManager;
         }
         public bool Create(Carrinho objeto)
         {
-            if (context.Carrinho.FirstOrDefault(c => c.Equals(objeto)) != null)
+            if (_context.Carrinho.FirstOrDefault(c => c.Equals(objeto)) != null)
                 return false;
 
-            List<EstabPneu> estoqueProduto = context.EstabPneu.Where(p => p.ProductId == objeto.ProductId).ToList();
+            List<EstabPneu> estoqueProduto = _context.EstabPneu.Where(p => p.ProductId == objeto.ProductId).ToList();
             EstabPneu estoqueAtualizado = new EstabPneu();
 
             if (estoqueProduto == null) return false;
@@ -44,9 +44,9 @@ namespace pneustoreAPI.Services
             {
                 if (estoqueAtualizado.Quantity >= 0 && estoqueAtualizado.ProductId != 0)
                 {
-                    context.EstabPneu.Update(estoqueAtualizado);
-                    context.Carrinho.Add(objeto);
-                    context.SaveChanges();
+                    _context.EstabPneu.Update(estoqueAtualizado);
+                    _context.Carrinho.Add(objeto);
+                    _context.SaveChanges();
                     return true;
                 }
                 else  
@@ -60,14 +60,14 @@ namespace pneustoreAPI.Services
 
         public Carrinho Get(string userName, int? productId)
         {
-            return context.Carrinho.Include(c => c.Product).FirstOrDefault(p => p.ProductId == productId && p.UserId == GetCurrentUserByUsername(userName).Id);
+            return _context.Carrinho.Include(c => c.Product).FirstOrDefault(p => p.ProductId == productId && p.UserId == GetCurrentUserByUsername(userName).Id);
         }
 
         public List<Carrinho> GetFromUser(string userName)
         {
             try {
                 var user = GetCurrentUserByUsername(userName);
-                return context.Carrinho.Where(u => u.UserId == user.Id).Include(c => c.Product).ToList();
+                return _context.Carrinho.Where(u => u.UserId == user.Id).Include(c => c.Product).ToList();
             }
             catch { 
                 return null;
@@ -76,7 +76,7 @@ namespace pneustoreAPI.Services
 
         public List<Carrinho> GetAll()
         {
-            return context.Carrinho.Include(c => c.Product).ToList();
+            return _context.Carrinho.Include(c => c.Product).ToList();
         }
 
 
@@ -84,10 +84,10 @@ namespace pneustoreAPI.Services
         {
             try
             {
-                if (!context.Carrinho.Any(p => p.ProductId == prod.ProductId)) throw new Exception("Produto não existe!");
+                if (!_context.Carrinho.Any(p => p.ProductId == prod.ProductId)) throw new Exception("Produto não existe!");
 
-                context.Carrinho.Update(prod);
-                context.SaveChanges();
+                _context.Carrinho.Update(prod);
+                _context.SaveChanges();
                 return true;
 
             }
@@ -102,11 +102,11 @@ namespace pneustoreAPI.Services
             try
             {
                 Carrinho carrinho = Get(userId, id);
-                EstabPneu estoque = context.EstabPneu.FirstOrDefault(p => p.ProductId == id && p.Quantity < carrinho.Quantity);
+                EstabPneu estoque = _context.EstabPneu.FirstOrDefault(p => p.ProductId == id && p.Quantity < carrinho.Quantity);
                 estoque.Quantity += carrinho.Quantity;
-                context.EstabPneu.Update(estoque);
-                context.Carrinho.Remove(Get(userId, id));
-                context.SaveChanges();
+                _context.EstabPneu.Update(estoque);
+                _context.Carrinho.Remove(Get(userId, id));
+                _context.SaveChanges();
                 return true;
             }
             catch
@@ -117,7 +117,7 @@ namespace pneustoreAPI.Services
 
         public PneuUser GetCurrentUserByUsername(string userName)
         {
-            return userManager.FindByNameAsync(userName).Result;
+            return _userManager.FindByNameAsync(userName).Result;
         }
 
         public double TotalCarrinho(string userName)
