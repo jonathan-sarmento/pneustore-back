@@ -53,11 +53,11 @@ namespace pneustoreAPI.Controllers
                     var listCarrinhos = _carrinhoService.GetFromUser(identityUser.IP);
                     
                     if(listCarrinhos.Any())
-                        listCarrinhos.ForEach(c => _carrinhoService.Update(new Carrinho()
+                        listCarrinhos.ForEach(c => _carrinhoService.Create(new Carrinho()
                         {
                             Quantity = c.Quantity,
                             ProductId = c.ProductId,
-                            UserId = identityUser.UserName
+                            UserId = _carrinhoService.GetCurrentUserByUsername(identityUser.UserName).Id
                         }));
                 }
 

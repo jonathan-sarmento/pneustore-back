@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using pneustoreAPI.API;
 using pneustoreAPI.Models;
@@ -7,6 +8,7 @@ namespace pneustoreAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class EstabelecimentoController : APIBaseController
     {
         EstabelecimentoService _service;
@@ -28,7 +30,6 @@ namespace pneustoreAPI.Controllers
         /// <returns></returns>
 
         [Route("{id}"), HttpGet]
-        [AuthorizeRoles(RoleType.Common)]
         public IActionResult Get(int? id) =>
             _service.Get(id) != null ?
                 ApiOk(_service.Get(id)) :
@@ -37,10 +38,11 @@ namespace pneustoreAPI.Controllers
         [Route("Estoque/{id}"), HttpGet]
         public IActionResult GetEstoque(int? id) {
             var estoque = _service.GetEstoque(id);
-            return estoque != null ? ApiOk(estoque) : ApiNotFound($"Não há estoque para o produto com id {id}.");
+            return estoque.Count > 0 ? ApiOk(estoque) : ApiNotFound($"Não há estoque para o produto com id {id}.");
         }
 
         [HttpPost]
+        [Route("Estoque")]
         public IActionResult CreateEstoque([FromBody] EstabPneu estoque)
         {
             return _service.CreateEstoque(estoque) ? 
@@ -50,8 +52,8 @@ namespace pneustoreAPI.Controllers
 
         [HttpPost]
         public IActionResult Create([FromBody] Estabelecimento estabelecimento)
-        {
-            return _service.Create(estabelecimento) ? 
+            {
+                return _service.Create(estabelecimento) ? 
                 ApiOk("Estabelecimento criado com sucesso!") : 
                 ApiBadRequest("Não foi possível criar o estabelecimento.");
         }

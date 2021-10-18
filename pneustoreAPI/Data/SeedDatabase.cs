@@ -34,6 +34,11 @@ namespace pneustoreAPI.Data
                     "https://static.pneustore.com.br/medias/sys_master/images/images/h2d/haa/8859639840798/pneu-continental-aro-16-contiprocontact-195-55r16-87v-1.jpg",
                     "https://static.pneustore.com.br/medias/sys_master/images/images/h33/h34/8859635515422/pneu-continental-aro-16-conticrosscontact-at-205-60r16-92h-1.jpg",
                     "https://static.pneustore.com.br/medias/sys_master/images/images/hfd/hd1/8859640037406/pneu-continental-aro-16-conticrosscontact-lx2-265-70r16-112h-1.jpg"};
+                string[] imagemEstab = new string[] {
+                    "http://www.cantupneus.com.br/medias/sys_master/h09/h3d/9431015424030/fotoOficina-30070385000124.jpg",
+                    "http://www.cantupneus.com.br/medias/sys_master/h0f/h2e/9442130722846/fotoOficina-27032566000151.jpg",
+                    "http://www.cantupneus.com.br/medias/sys_master/h62/ha3/9459302858782/fotoOficina-28122243000111.jpg"
+                };
                 string[] aro = new string[] { "13", "14", "15", "16", "17", "18", "22.5" };
                 string[] modelo = new string[] { "ExtremeContact DW", "IT01", "Angel GT", "AM520", "BS32", "AGILIS" };
                 string[] medida = new string[] { "265/70R16", "235/70R16", "195/75R16", "205/55R16", "205/75R16", "225/70R16", "100/80-16" };
@@ -50,6 +55,19 @@ namespace pneustoreAPI.Data
                             imagemUrlMarca = $"{marcaImagem[marcaId]}",
                             marca = $"{marca[marcaId]}",
                             preco = Math.Round(rand.NextDouble() * 1000, 2)
+                        });
+                    }
+                }
+
+                if (!context.Estabelecimentos.Any())
+                {
+                    for(int i = 0; i < contador; i++)
+                    {
+                        context.Add(new Estabelecimento
+                        {
+                            endereco = $"Endereco {i}",
+                            imagemUrl = $"{imagemEstab[rand.Next(0, imagemEstab.Length)]}",
+                            nome = $"Oficina {i} de Pneus"
                         });
                     }
                 }

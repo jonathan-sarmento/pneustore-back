@@ -17,8 +17,8 @@ namespace pneustoreAPI.Services
     public class AuthService : IAuthService<PneuUser>
     {
         IConfiguration _config;
-        UserManager<PneuUser> _userManager;
-        SignInManager<PneuUser> _signInManager;
+        private readonly UserManager<PneuUser> _userManager;
+        private readonly SignInManager<PneuUser> _signInManager;
         public AuthService(UserManager<PneuUser> userManager, SignInManager<PneuUser> signInManager, IConfiguration config)
         {
             _userManager = userManager;

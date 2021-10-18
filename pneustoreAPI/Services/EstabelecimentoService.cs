@@ -6,22 +6,22 @@ using pneustoreAPI.Models;
 
 namespace pneustoreAPI.Services
 {
-    public class EstabelecimentoService
+    public class EstabelecimentoService : IService<Estabelecimento>
     {
-        Context context;
+        private readonly Context _context;
         public EstabelecimentoService(Context context)
         {
-            this.context = context;
+            _context = context;
         }
         public bool Create(Estabelecimento objeto)
         {
-            if (context.Estabelecimentos.FirstOrDefault(c => c.Equals(objeto)) != null)
+            if (_context.Estabelecimentos.FirstOrDefault(c => c.Equals(objeto)) != null)
                 return false;
 
             try
             {
-                context.Estabelecimentos.Add(objeto);
-                context.SaveChanges();
+                _context.Estabelecimentos.Add(objeto);
+                _context.SaveChanges();
                 return true;
             }
             catch
@@ -32,13 +32,13 @@ namespace pneustoreAPI.Services
 
         public bool CreateEstoque(EstabPneu objeto)
         {
-            if (context.EstabPneu.FirstOrDefault(c => c.Equals(objeto)) != null)
+            if (_context.EstabPneu.FirstOrDefault(c => c.Equals(objeto)) != null)
                 return false;
 
             try
             {
-                context.EstabPneu.Add(objeto);
-                context.SaveChanges();
+                _context.EstabPneu.Add(objeto);
+                _context.SaveChanges();
                 return true;
             }
             catch
@@ -51,16 +51,16 @@ namespace pneustoreAPI.Services
         {
             try
             {
-                if (!context.EstabPneu.Any(p => p.ProductId == objeto.ProductId)) throw new Exception("Produto n�o existe!");
+                if (!_context.EstabPneu.Any(p => p.ProductId == objeto.ProductId)) throw new Exception("Produto n�o existe!");
 
                 if(objeto.Quantity == 0)
                 {
-                    context.EstabPneu.Remove(objeto);
-                    context.SaveChanges();
+                    _context.EstabPneu.Remove(objeto);
+                    _context.SaveChanges();
                     return true;
                 }
-                context.EstabPneu.Update(objeto);
-                context.SaveChanges();
+                _context.EstabPneu.Update(objeto);
+                _context.SaveChanges();
                 return true;
             }
             catch
@@ -71,17 +71,17 @@ namespace pneustoreAPI.Services
 
         public Estabelecimento Get(int? id)
         {
-            return context.Estabelecimentos.FirstOrDefault(p => p.id == id);
+            return _context.Estabelecimentos.FirstOrDefault(p => p.id == id);
         }
 
         public List<EstabPneu> GetEstoque(int? id)
         {
-            return context.EstabPneu.Where(u => u.ProductId == id).ToList();
+            return _context.EstabPneu.Where(u => u.ProductId == id).ToList();
         }
 
         public List<Estabelecimento> GetAll()
         {
-            return context.Estabelecimentos.ToList();
+            return _context.Estabelecimentos.ToList();
         }
     }
 }

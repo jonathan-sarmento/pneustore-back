@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace pneustoreAPI.Models
 {
     public class Estabelecimento
@@ -8,10 +10,6 @@ namespace pneustoreAPI.Models
 
         public string endereco { get; set; }
 
-        public double distancia { get; set; }
-
         public string imagemUrl { get; set; }
-
-
     }
 }

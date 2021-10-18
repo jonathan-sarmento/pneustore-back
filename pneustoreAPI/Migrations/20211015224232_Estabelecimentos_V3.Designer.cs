@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using pneustoreAPI.Data;
 
 namespace pneustoreAPI.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20211015224232_Estabelecimentos_V3")]
+    partial class Estabelecimentos_V3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -268,6 +270,9 @@ namespace pneustoreAPI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<double>("distancia")
+                        .HasColumnType("float");
+
                     b.Property<string>("endereco")
                         .HasColumnType("nvarchar(max)");
 
@@ -289,6 +294,9 @@ namespace pneustoreAPI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("Estabelecimentoid")
+                        .HasColumnType("int");
+
                     b.Property<string>("imagemUrl")
                         .HasColumnType("nvarchar(max)");
 
@@ -305,6 +313,8 @@ namespace pneustoreAPI.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("id");
+
+                    b.HasIndex("Estabelecimentoid");
 
                     b.ToTable("Product");
                 });
@@ -412,6 +422,18 @@ namespace pneustoreAPI.Migrations
                     b.Navigation("Estabelecimento");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("pneustoreAPI.Models.Product", b =>
+                {
+                    b.HasOne("pneustoreAPI.Models.Estabelecimento", null)
+                        .WithMany("lista")
+                        .HasForeignKey("Estabelecimentoid");
+                });
+
+            modelBuilder.Entity("pneustoreAPI.Models.Estabelecimento", b =>
+                {
+                    b.Navigation("lista");
                 });
 #pragma warning restore 612, 618
         }
