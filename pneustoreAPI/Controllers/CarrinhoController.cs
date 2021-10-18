@@ -18,12 +18,13 @@ namespace pneustoreAPI.Controllers
         CarrinhoService service;
         IService<Product> _productService;
         IAuthService<PneuUser> _authService;
-        public CarrinhoController(CarrinhoService service, IService<Product> productService, IAuthService<PneuUser> authService)
+        ICupomService _cupomService;
+        public CarrinhoController(CarrinhoService service, IService<Product> productService, IAuthService<PneuUser> authService, ICupomService cupomService)
         {
             this.service = service;
             _productService = productService;
             _authService = authService;
-
+            _cupomService = cupomService;
             _authService.TimeHasExpired();
         }
 
@@ -73,17 +74,26 @@ namespace pneustoreAPI.Controllers
                 ProductId = model.ProductId,
                 UserId = service.GetCurrentUserByUsername(User.Identity.Name).Id
             };
-
+            
             return service.Create(carrinho) ?
                 ApiCreated($"[controller]/Add/{service.GetAll().LastOrDefault()}", "Carrinho criado com sucesso.")
                 : ApiBadRequest(carrinho, "Deu erro");
         }
 
         [HttpGet, Route("TotalPreco")]
-        public IActionResult GetTotalPreco() { 
-           var total = service.TotalCarrinho(User.Identity.Name);
-            return total > 0 ? ApiOk(total) : ApiBadRequest("Não há itens no carrinho!");
-        }
+        public IActionResult GetTotalPreco([FromBody]string NomeCupom, double? DescontoCupom) {
+            var cupom = new Cupom(NomeCupom, DescontoCupom);
+            var cupomAplicado = _cupomService.Get(cupom.Nome).Desconto;
+            var total = service.TotalCarrinho(User.Identity.Name);
+            if (cupomAplicado>0){
+                 var totalAplicado = total * cupomAplicado;
+                return ApiOk(totalAplicado);
+            }
+            else
+            {
+                return total > 0 ? ApiOk(total) : ApiBadRequest("Não há itens no carrinho!");
+            }
 
+        }
     }
 }
