@@ -20,7 +20,7 @@ namespace pneustoreAPI.Data
             builder.Entity<EstabPneu>()
                 .HasKey(tt => new { tt.ProductId, tt.EstabelecimentoId });
             builder.Entity<Cupom>()
-                .HasKey(tt => new { tt.Nome});
+                .HasKey(tt => new { tt.id});
            
         }
 

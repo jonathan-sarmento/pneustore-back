@@ -6,16 +6,14 @@ using System.Threading.Tasks;
 
 namespace pneustoreAPI.Models
 {
-   
+
     public class Cupom
     {
-        public Cupom(string Nome="", double? Desconto=0)
-        {
-            this.Nome = Nome;
-            this.Desconto = Desconto;
-        }
+        
         [Key]
-        public string Nome;
+        public int id;
+        public string Nome {get;set;}
+
         public double? Desconto { get; set; }
     }
 }

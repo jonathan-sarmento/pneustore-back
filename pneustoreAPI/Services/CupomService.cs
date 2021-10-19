@@ -15,6 +15,9 @@ namespace pneustoreAPI.Services
         {
             _context = context;
         }
+
+        public List<Cupom> GetAll() => _context.Cupoms.ToList();
+
         public bool Create(Cupom cupom)
         {
             try
@@ -30,9 +33,9 @@ namespace pneustoreAPI.Services
             
         }
 
-        public bool Delete(string nome)
+        public bool Delete(int? id)
         {
-            var cupom = _context.Cupoms.FirstOrDefault(c => c.Nome == nome);
+            var cupom = _context.Cupoms.FirstOrDefault(c => c.id == id);
             try
             {
                 _context.Cupoms.Remove(cupom);
@@ -46,6 +49,20 @@ namespace pneustoreAPI.Services
         }
 
         public Cupom Get(string nome)
-         => _context.Cupoms.FirstOrDefault(p => p.Nome == nome);
+        {
+            Cupom exist = _context.Cupoms.FirstOrDefault(c => c.Nome == nome);
+            Cupom cupom = new Cupom();
+            cupom.Nome = "";
+            cupom.Desconto = 0;
+            if (exist != null)
+            {
+                return exist;
+            }
+            else
+            {
+                return cupom;
+            }
+        }
+         
     }
 }

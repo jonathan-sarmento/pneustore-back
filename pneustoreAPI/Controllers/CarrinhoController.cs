@@ -15,10 +15,11 @@ namespace pneustoreAPI.Controllers
     [Authorize]
     public class CarrinhoController : APIBaseController
     {
-        CarrinhoService service;
+        CarrinhoService _service;
         IService<Product> _productService;
+        ICupomService _cupomService;
         IAuthService<PneuUser> _authService;
-        public CarrinhoController(CarrinhoService service, IService<Product> productService, IAuthService<PneuUser> authService)
+        public CarrinhoController(CarrinhoService service, IService<Product> productService, IAuthService<PneuUser> authService, ICupomService cupomService)
         {
             _service = service;
             _productService = productService;
@@ -74,17 +75,26 @@ namespace pneustoreAPI.Controllers
                 UserId = _service.GetCurrentUserByUsername(User.Identity.Name).Id
             };
 
-            return service.Create(carrinho) ?
-                ApiCreated($"[controller]/Add/{service.GetAll().LastOrDefault()}", "Carrinho criado com sucesso.")
+            return _service.Create(carrinho) ?
+                ApiCreated($"[controller]/Add/{_service.GetAll().LastOrDefault()}", "Carrinho criado com sucesso.")
                 : ApiBadRequest(carrinho, "Deu erro");
         }
 
         [HttpGet, Route("TotalPreco")]
-        public IActionResult GetTotalPreco() { 
-           var total = service.TotalCarrinho(User.Identity.Name);
-            return total > 0 ? ApiOk(total) : ApiBadRequest("Não há itens no carrinho!");
+        public IActionResult GetTotalPreco([FromBody]string cupom) {
+            var exist = _cupomService.Get(cupom);
+            var desconto = exist.Desconto;
+            var total = _service.TotalCarrinho(User.Identity.Name);
+            var totalFinal = (double)(total * desconto);
+           
+           
+            return totalFinal > 0 ? ApiOk(total) : ApiBadRequest("Não há itens no carrinho!"); 
+           
+            
+           
+            
         }
 
-        }
+        
     }
 }

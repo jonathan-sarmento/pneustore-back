@@ -10,7 +10,7 @@ namespace pneustoreAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [AuthorizeRoles(Roles ="Admin")]
+    //[AuthorizeRoles(Roles ="Admin")]
     //[] rota para permitir Role.admin
     public class CupomController : APIBaseController
     {
@@ -19,30 +19,39 @@ namespace pneustoreAPI.Controllers
         {
             _cupomService = cupomService;
         }
-        [HttpGet]
 
-        public IActionResult Index() => ApiOk("100% de desconto pra vc");
+        [HttpGet,Route("Cupons")]
+        public IActionResult Index() => ApiOk(_cupomService.GetAll());
+
         [HttpPost, Route("Create")]
 
         public IActionResult Create(Cupom cupom)
         {
-            var exists = _cupomService.Get(cupom.Nome);
-            if (ModelState.IsValid && !exists.Equals(null))
+            //var exists = _cupomService.Get(cupom.Nome);
+            try
             {
                 _cupomService.Create(cupom);
                 return ApiOk("Cupom criado");
             }
-            else
+            catch
             {
                 return ApiBadRequest("Erro");
             }
         }
+        [HttpGet, Route("Get")]
+
+        public IActionResult Get([FromBody]string nome)
+        {
+              return ApiOk(_cupomService.Get(nome));
+        }
+
+
         [HttpPost, Route("Delete")]
-        public IActionResult Delete(string nome)
+        public IActionResult Delete(int? id)
         {
             try
             {
-                _cupomService.Delete(nome);
+                _cupomService.Delete(id);
                 return ApiOk("Deletado");
             }
             catch
