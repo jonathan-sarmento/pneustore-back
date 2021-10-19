@@ -102,7 +102,7 @@ namespace pneustoreAPI.Controllers
         {
             return _service.DeleteEstoque(_service.GetSingleEstoque(productId, estabId)) ? 
                 ApiOk("Estoque deletado com sucesso!") : 
-                ApiBadRequest("Não foi possível atualizar o estoque!");
+                ApiBadRequest("Não foi possível deletar o estoque!");
         }
     }
 }
