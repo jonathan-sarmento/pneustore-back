@@ -15,15 +15,16 @@ namespace pneustoreAPI.Controllers
     [Authorize]
     public class CarrinhoController : APIBaseController
     {
-        private readonly CarrinhoService _service;
-        private readonly IService<Product> _productService;
-        private readonly IAuthService<PneuUser> _authService;
-        public CarrinhoController(CarrinhoService service, IService<Product> productService, IAuthService<PneuUser> authService)
+        CarrinhoService _service;
+        IService<Product> _productService;
+        ICupomService _cupomService;
+        IAuthService<PneuUser> _authService;
+        public CarrinhoController(CarrinhoService service, IService<Product> productService, IAuthService<PneuUser> authService, ICupomService cupomService)
         {
             _service = service;
             _productService = productService;
             _authService = authService;
-
+            _cupomService = cupomService;
             _authService.TimeHasExpired();
         }
 
@@ -80,10 +81,20 @@ namespace pneustoreAPI.Controllers
         }
 
         [HttpGet, Route("TotalPreco")]
-        public IActionResult GetTotalPreco() { 
-           var total = _service.TotalCarrinho(User.Identity.Name);
-            return total > 0 ? ApiOk(total) : ApiBadRequest("Não há itens no carrinho!");
+        public IActionResult GetTotalPreco([FromBody]string cupom) {
+            var exist = _cupomService.Get(cupom);
+            var desconto = exist.Desconto;
+            var total = _service.TotalCarrinho(User.Identity.Name);
+            var totalFinal = (double)(total * desconto);
+           
+           
+            return totalFinal > 0 ? ApiOk(total) : ApiBadRequest("Não há itens no carrinho!"); 
+           
+            
+           
+            
         }
 
+        
     }
 }

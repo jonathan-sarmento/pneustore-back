@@ -57,7 +57,7 @@ namespace pneustoreAPI
                 c.IncludeXmlComments(xmlPath);
             });
 
-            services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("Caio")));
+            services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("Pedro")));
             //services.AddAuthentication().AddFacebook(facebookOptions =>
             //{
             //    facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
@@ -68,6 +68,7 @@ namespace pneustoreAPI
             services.AddTransient<IService<Product>, ProductService>();
             services.AddTransient<EstabelecimentoService>();
             services.AddTransient<CarrinhoService>();
+            services.AddTransient<ICupomService, CupomService>();
             services.AddTransient<IAuthService<PneuUser>, AuthService>();
             
 

@@ -19,6 +19,9 @@ namespace pneustoreAPI.Data
 
             builder.Entity<EstabPneu>()
                 .HasKey(tt => new { tt.ProductId, tt.EstabelecimentoId });
+            builder.Entity<Cupom>()
+                .HasKey(tt => new { tt.id});
+           
         }
 
         public DbSet<Product> Product { get; set; }
@@ -28,5 +31,6 @@ namespace pneustoreAPI.Data
         public DbSet<Carrinho> Carrinho { get; set; }
 
         public DbSet<EstabPneu> EstabPneu { get; set; }
+        public DbSet<Cupom> Cupoms { get; set; }
     }
 }
