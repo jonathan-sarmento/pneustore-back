@@ -52,7 +52,7 @@ namespace pneustoreAPI.Controllers
                 if(!identityUser.IsAnonymous && identityUser.UserName != identityUser.IP){
                     var listCarrinhos = _carrinhoService.GetFromUser(identityUser.IP);
                     
-                    if(listCarrinhos.Any())
+                    if(listCarrinhos != null)
                         listCarrinhos.ForEach(c => _carrinhoService.Create(new Carrinho()
                         {
                             Quantity = c.Quantity,

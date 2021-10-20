@@ -52,7 +52,7 @@ namespace pneustoreAPI
                 c.IncludeXmlComments(xmlPath);
             });
 
-            services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("Caio")));
+            services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("Jonathan")));
             //services.AddAuthentication().AddFacebook(facebookOptions =>
             //{
             //    facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];

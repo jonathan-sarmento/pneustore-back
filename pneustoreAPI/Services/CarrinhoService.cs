@@ -66,7 +66,7 @@ namespace pneustoreAPI.Services
         public List<Carrinho> GetFromUser(string userName)
         {
             try {
-                var user = GetCurrentUserByUsername(userName);
+                var user = GetCurrentUserByUsername(userName) as PneuUser;
                 return _context.Carrinho.Where(u => u.UserId == user.Id).Include(c => c.Product).ToList();
             }
             catch { 
