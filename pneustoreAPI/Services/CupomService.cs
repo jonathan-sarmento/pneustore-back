@@ -10,7 +10,7 @@ namespace pneustoreAPI.Services
     public class CupomService : ICupomService
     {
         
-        Context _context; 
+        private readonly Context _context; 
         public CupomService(Context context)
         {
             _context = context;

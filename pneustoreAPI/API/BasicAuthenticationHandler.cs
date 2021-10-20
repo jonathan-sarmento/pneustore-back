@@ -18,7 +18,7 @@ namespace pneustoreAPI.API
 {
     public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
-        readonly IAuthService<PneuUser> _userService;
+        private readonly IAuthService<PneuUser> _userService;
         public BasicAuthenticationHandler(IAuthService<PneuUser> userService,
             IOptionsMonitor<AuthenticationSchemeOptions> options,
             ILoggerFactory logger,

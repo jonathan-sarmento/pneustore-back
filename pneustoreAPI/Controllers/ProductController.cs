@@ -11,7 +11,7 @@ namespace pneustoreAPI.Controllers
     [AllowAnonymous]
     public class ProductController : APIBaseController
     {
-        IService<Product> _service;
+        private readonly IService<Product> _service;
         public ProductController(IService<Product> service)
         {
             _service = service;

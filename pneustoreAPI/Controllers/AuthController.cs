@@ -20,12 +20,12 @@ namespace pneustoreAPI.Controllers
     [AllowAnonymous]
     public class AuthController : APIBaseController
     {
-        IAuthService<PneuUser> service;
-        CarrinhoService _carrinhoService;
-        public AuthController(IAuthService<PneuUser> service, CarrinhoService carrinhoService)
+        private readonly IAuthService<PneuUser> _authService;
+        private readonly CarrinhoService _carrinhoService;
+        public AuthController(IAuthService<PneuUser> authService, CarrinhoService carrinhoService)
         {
-            this.service = service;
-            this.service.TimeHasExpired();
+            _authService = authService;
+            _authService.TimeHasExpired();
             _carrinhoService = carrinhoService;
         }
         
@@ -39,13 +39,13 @@ namespace pneustoreAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         #endregion
-        [HttpPost]
-        [Route("Register")]
+
+        [HttpPost, Route("Register")]
         public IActionResult NewUser(PneuUser identityUser)
         {
             try
             {
-                IdentityResult result = service.Create(identityUser).Result;
+                IdentityResult result = _authService.Create(identityUser).Result;
                 if (!result.Succeeded) throw new Exception();
 
                 // Verifica se o ususário não é anonimo e faz a migração dos carrinhos para o usuario real
@@ -79,14 +79,13 @@ namespace pneustoreAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         #endregion
-        [HttpPost]
-        [Route("Token")]
+        [HttpPost, Route("Token")]
         
         public IActionResult Token([FromBody] PneuUser identityUser)
         {
             try
             {
-                return ApiOk(service.GenerateToken(identityUser));
+                return ApiOk(_authService.GenerateToken(identityUser));
             }
             catch (Exception exception)
             {
@@ -95,16 +94,13 @@ namespace pneustoreAPI.Controllers
         }
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [HttpPost]
-        [Route("DeleteUser")]
+        [HttpPost, Route("DeleteUser")]
         public IActionResult DeleteUser(string id, Exception exception)
         {
-
             if (id == null)
-            {
                 return ApiBadRequest(exception.Message);
-            }
-            return ApiOk(service.DeleteUser(id));
+            
+            return ApiOk(_authService.DeleteUser(id));
             
         }
       

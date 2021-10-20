@@ -8,9 +8,9 @@ namespace pneustoreAPI.Services
 {
     public interface ICupomService
     {
-        public bool Create(Cupom cupom);
-        public bool Delete(int? id);
-        public Cupom Get(string nome);
-        public List<Cupom> GetAll();
+        bool Create(Cupom cupom);
+        bool Delete(int? id);
+        Cupom Get(string nome);
+        List<Cupom> GetAll();
     }
 }

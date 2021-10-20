@@ -7,7 +7,7 @@ namespace pneustoreAPI.Services
 {
     public class ProductService : IService<Product>
     {
-        Context _context;
+        private readonly Context _context;
 
         public ProductService(Context context)
         {

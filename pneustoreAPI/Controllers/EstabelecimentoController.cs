@@ -35,12 +35,10 @@ namespace pneustoreAPI.Controllers
                 ApiNotFound($"Estabelecimento com o id:{id} não existe.");
 
         [HttpPost]
-        public IActionResult Create([FromBody] Estabelecimento estabelecimento)
-        {
-            return _service.Create(estabelecimento) ?
-            ApiOk("Estabelecimento criado com sucesso!") :
-            ApiBadRequest("Não foi possível criar o estabelecimento.");
-        }
+        public IActionResult Create([FromBody] Estabelecimento estabelecimento) =>
+            _service.Create(estabelecimento) ?
+                ApiCreated("Estabelecimento criado com sucesso!") :
+                ApiBadRequest("Não foi possível criar o estabelecimento.");
 
         [HttpPut]
         public IActionResult Update([FromBody] Estabelecimento estabelecimento)

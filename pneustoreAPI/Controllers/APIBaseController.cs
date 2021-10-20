@@ -9,8 +9,8 @@ namespace pneustoreAPI.Controllers
             Ok(CustomResponse("" ,true , Results));
         protected OkObjectResult ApiOk(string Message = "") =>
             Ok(CustomResponse(Message ,true));
-        protected CreatedResult ApiCreated(string Url, string Message = "") =>
-            Created(Url, CustomResponse(Message ,true));
+        protected CreatedResult ApiCreated(string Message = "") =>
+            Created("", CustomResponse(Message ,true));
         protected NotFoundObjectResult ApiNotFound(string Message = "") =>
             NotFound(CustomResponse(Message ,false));
         protected BadRequestObjectResult ApiBadRequest<T>(T results, string Message = "") => 
