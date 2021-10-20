@@ -50,13 +50,12 @@ namespace pneustoreAPI.Services
 
         public Cupom Get(string nome)
         {
-            Cupom exist = _context.Cupoms.FirstOrDefault(c => c.Nome == nome);
             Cupom cupom = new Cupom();
             cupom.Nome = "";
             cupom.Desconto = 0;
-            if (exist != null)
+            if (nome.Length >= 3)
             {
-                return exist;
+                return _context.Cupoms.First(c => c.Nome == nome);
             }
             else
             {

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using pneustoreapi.Models;
 using pneustoreAPI.Models;
 using pneustoreAPI.Services;
+using System;
 using System.Linq;
 using System.Net.Mime;
 
@@ -82,19 +83,10 @@ namespace pneustoreAPI.Controllers
 
         [HttpGet, Route("TotalPreco")]
         public IActionResult GetTotalPreco([FromBody]string cupom) {
-            var exist = _cupomService.Get(cupom);
-            var desconto = exist.Desconto;
             var total = _service.TotalCarrinho(User.Identity.Name);
-            var totalFinal = (double)(total * desconto);
-           
-           
-            return totalFinal > 0 ? ApiOk(total) : ApiBadRequest("Não há itens no carrinho!"); 
-           
-            
-           
-            
-        }
+            var totalFinal = (decimal)total - (decimal)(total * _cupomService.Get(cupom).Desconto);
 
-        
+            return totalFinal > 0 ? ApiOk(Math.Round(totalFinal,3)) : ApiBadRequest("Não há itens no carrinho!"); 
+        }
     }
 }

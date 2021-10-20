@@ -123,7 +123,7 @@ namespace pneustoreAPI.Services
         public double TotalCarrinho(string userName)
         {
             var carrinho = GetFromUser(userName);
-            return carrinho.Sum(p => p.Product.preco);
+            return carrinho.Sum(p => p.Product.preco * p.Quantity);
         }
     }
 }

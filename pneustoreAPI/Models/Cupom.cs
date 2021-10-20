@@ -9,10 +9,11 @@ namespace pneustoreAPI.Models
 
     public class Cupom
     {
-        
+
         [Key]
         public int id;
-        public string Nome {get;set;}
+
+        public string Nome { get; set; }
 
         public double? Desconto { get; set; }
     }
