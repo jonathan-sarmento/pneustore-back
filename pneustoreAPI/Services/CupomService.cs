@@ -55,7 +55,7 @@ namespace pneustoreAPI.Services
             cupom.Desconto = 0;
             if (nome.Length >= 3)
             {
-                return _context.Cupoms.First(c => c.Nome == nome);
+                return _context.Cupoms.FirstOrDefault(c => c.Nome == nome);
             }
             else
             {

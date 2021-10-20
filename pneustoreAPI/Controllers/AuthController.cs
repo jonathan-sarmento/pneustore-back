@@ -92,17 +92,22 @@ namespace pneustoreAPI.Controllers
                 return ApiBadRequest(exception.Message);
             }
         }
+
+        /// <summary>
+        /// Deleta um usuário do banco de dados, requer que seja informado o ID do usuário.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [HttpPost, Route("DeleteUser")]
-        public IActionResult DeleteUser(string id, Exception exception)
+        [HttpDelete, Route("Delete/{id}")]
+        public IActionResult DeleteUser(string id)
         {
             if (id == null)
-                return ApiBadRequest(exception.Message);
+                return ApiBadRequest("Informe o id!");
             
             return ApiOk(_authService.DeleteUser(id));
             
         }
-      
     }
 }

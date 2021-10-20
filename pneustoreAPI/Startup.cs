@@ -38,12 +38,16 @@ namespace pneustoreAPI
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "pneustoreAPI", Version = "v1" ,
-                    Description = "",
+                    Description = "API REST em C# com ASP.NET Core criada para o Projeto de Bootcamp da Blue Edtech em parceria com a PneuStore sobre o re-design da página de compra. Essa API tem como o objeto alimentar o interface gráfico desenvolvido com informações guardadas no banco de dados.",
+                    License = new OpenApiLicense
+                    {
+                        Name = "MIT License",
+                        Url = new Uri("https://github.com/jonathan-sarmento/pneustore-back/blob/main/LICENSE")
+                    },
                     Contact = new OpenApiContact
                     {
-                        Name = "Caio Silva",
-                        Email = "caio.silva@grupolevel.com.br",
-                        Url = new Uri("https://www.pneustore.com.br/")
+                        Name = "Github do projeto",
+                        Url = new Uri("https://github.com/jonathan-sarmento/pneustore-back")
                     }
                 });
                 
@@ -52,7 +56,7 @@ namespace pneustoreAPI
                 c.IncludeXmlComments(xmlPath);
             });
 
-            services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("Jonathan")));
+            services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("Caio")));
             //services.AddAuthentication().AddFacebook(facebookOptions =>
             //{
             //    facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];

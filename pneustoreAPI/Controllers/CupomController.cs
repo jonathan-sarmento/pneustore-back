@@ -4,6 +4,7 @@ using pneustoreAPI.API;
 using pneustoreAPI.Data;
 using pneustoreAPI.Models;
 using pneustoreAPI.Services;
+using System;
 using System.Linq;
 
 namespace pneustoreAPI.Controllers
@@ -20,42 +21,64 @@ namespace pneustoreAPI.Controllers
             _cupomService = cupomService;
         }
 
-        [HttpGet, Route("Cupons")]
+        /// <summary>
+        /// Retorna todos os cupons no banco de dados.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         public IActionResult Index() 
             => ApiOk(_cupomService.GetAll());
 
-
-        [HttpPost, Route("Create")]
+        /// <summary>
+        /// Cria um cupom no banco de dados.
+        /// </summary>
+        /// <param name="cupom"></param>
+        /// <returns></returns>
+        [HttpPost]
         public IActionResult Create(Cupom cupom)
         {
-            //var exists = _cupomService.Get(cupom.Nome);
-            try
-            {
-                _cupomService.Create(cupom);
-                return ApiCreated("Cupom criado");
+            if(cupom.Desconto < 1 && cupom.Desconto > 0) { 
+                try
+                {
+                    _cupomService.Create(cupom);
+                    return ApiCreated("Cupom criado");
+                }
+                catch (Exception ex)
+                {
+                    return ApiBadRequest(ex.Message,"Houve um erro na criação de cupom.");
+                }
             }
-            catch
-            {
-                return ApiBadRequest("Erro");
-            }
+            return ApiBadRequest("Valor de desconto inválido! Insira um valor entre 0 e 1.");
         }
 
+        /// <summary>
+        /// Retorna um cupom específico com base de seu conteúdo.
+        /// </summary>
+        /// <param name="nome"></param>
+        /// <returns></returns>
         [HttpGet, Route("Get")]
         public IActionResult Get([FromBody] string nome)
-            => ApiOk(_cupomService.Get(nome));
+        {
+            var cupom = _cupomService.Get(nome);
+            return cupom != null ? ApiOk(cupom) : ApiBadRequest("Não existem cupons com esse conteúdo!");
+        }
 
-
-        [HttpPost, Route("Delete")]
+        /// <summary>
+        /// Deleta um cupom com base em seu ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete, Route("{id?}")]
         public IActionResult Delete(int? id)
         {
             try
             {
                 _cupomService.Delete(id);
-                return ApiOk("Deletado");
+                return ApiOk("Cupom deletado!");
             }
-            catch
+            catch(Exception ex)
             {
-                return ApiBadRequest("Erro");
+                return ApiBadRequest(ex.Message, "Houve um erro na criação de cupom.");
             }
         }
     }
