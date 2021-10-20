@@ -15,6 +15,19 @@ Caso queira utilizar localmente, é necessário que baixe e instale o <a href="h
 
 Após executado, é necessário o uso de algum API Client, como o <a href="https://www.postman.com">Postman</a> para acessar os conteúdos da API. A documentação das rotas e a lista de cada rota está presente <a href="https://documenter.getpostman.com/view/17178267/UV5XidNW">aqui</a>, bastando mudar a rota para o seu localhost.
 
+## Dependências:
+
+<a href="https://dotnet.microsoft.com/download">.NET 5.0</a></br>
+ASP.NET Core 5.0 </br>
+<a href="https://www.nuget.org/packages/Microsoft.EntityFrameworkCore">Microsoft.EntityFrameworkCore</a></br>
+<a href="https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/">Microsoft.EntityFrameworkCore.SqlServer</a></br>
+<a href="https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Tools">Microsoft.EntityFrameworkCore.Tools</a></br>
+<a href="https://www.nuget.org/packages/Microsoft.AspNetCore.Identity/">Microsoft.AspNetCore.Identity</a></br>
+<a href="https://www.nuget.org/packages/Microsoft.AspNetCore.Identity.EntityFrameworkCore">Microsoft.AspNetCore.Identity.EntityFrameworkCore</a></br>
+<a href="https://www.nuget.org/packages/Microsoft.AspNetCore.Identity.UI">Microsoft.AspNetCore.Identity.UI</a></br>
+<a href="https://www.nuget.org/packages/Swashbuckle.AspNetCore/">Swashbuckle.AspNetCore</a></br>
+<a href="https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.JwtBearer">Microsoft.AspNetCore.Authentication.JwtBearer</a>
+
 ## Modelos de requisição
 
 ### Usuário:
@@ -93,16 +106,3 @@ Após executado, é necessário o uso de algum API Client, como o <a href="https
 <a href="https://github.com/AndersonRFerreira">Anderson Ferreira</a></br>
 <a href="https://github.com/Caioferrari04">Caio Ferrari</a></br>
 <a href="https://github.com/jonathan-sarmento">Jonathan Souza</a>
-
-## Dependências:
-
-<a href="https://dotnet.microsoft.com/download">.NET 5.0</a></br>
-ASP.NET Core 5.0 </br>
-<a href="https://www.nuget.org/packages/Microsoft.EntityFrameworkCore">Microsoft.EntityFrameworkCore</a></br>
-<a href="https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/">Microsoft.EntityFrameworkCore.SqlServer</a></br>
-<a href="https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Tools">Microsoft.EntityFrameworkCore.Tools</a></br>
-<a href="https://www.nuget.org/packages/Microsoft.AspNetCore.Identity/">Microsoft.AspNetCore.Identity</a></br>
-<a href="https://www.nuget.org/packages/Microsoft.AspNetCore.Identity.EntityFrameworkCore">Microsoft.AspNetCore.Identity.EntityFrameworkCore</a></br>
-<a href="https://www.nuget.org/packages/Microsoft.AspNetCore.Identity.UI">Microsoft.AspNetCore.Identity.UI</a></br>
-<a href="https://www.nuget.org/packages/Swashbuckle.AspNetCore/">Swashbuckle.AspNetCore</a></br>
-<a href="https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.JwtBearer">Microsoft.AspNetCore.Authentication.JwtBearer</a>
