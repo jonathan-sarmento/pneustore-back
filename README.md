@@ -73,6 +73,15 @@ Para utilizar essa API, há duas alternativas: utilizando da nuvem e utilizando 
 }
 ```
 
+### Cupom:
+
+```json
+{
+    "nome": "BBBB",
+    "desconto": 0.9
+}
+```
+
 ## Dependências:
 
 <a href="https://dotnet.microsoft.com/download">.NET 5.0</a></br>
