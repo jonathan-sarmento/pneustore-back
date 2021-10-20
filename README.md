@@ -69,7 +69,7 @@ Para utilizar essa API, há duas alternativas: utilizando da nuvem e utilizando 
     "id": int,
     "nome": "string",
     "endereco": "string",
-    "imagemUrl": "stringg"
+    "imagemUrl": "string"
 }
 ```
 
