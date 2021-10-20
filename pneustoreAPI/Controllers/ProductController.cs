@@ -22,7 +22,9 @@ namespace pneustoreAPI.Controllers
         /// <returns></returns>
 
         [HttpGet]
-        public IActionResult Index() => ApiOk(_service.GetAll());
+        public IActionResult Index() 
+            => ApiOk(_service.GetAll());
+            
 
         /// <summary>
         /// Retorna produto especifíco cadastrado no banco 
@@ -30,10 +32,10 @@ namespace pneustoreAPI.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [Route("{id}"), HttpGet]
-        public IActionResult Get(int? id) =>
-            _service.Get(id) != null ?
-                ApiOk(_service.Get(id)) :
-                ApiNotFound($"Produto com id: {id} não existe."); 
+        public IActionResult Get(int? id) 
+            => _service.Get(id) != null ?
+                    ApiOk(_service.Get(id)) :
+                    ApiNotFound($"Produto com id: {id} não existe."); 
         
     }
 }

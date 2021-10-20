@@ -29,24 +29,22 @@ namespace pneustoreAPI.Controllers
         /// <returns></returns>
 
         [Route("{id}"), HttpGet]
-        public IActionResult Get(int? id) =>
-            _service.Get(id) != null ?
-                ApiOk(_service.Get(id)) :
-                ApiNotFound($"Estabelecimento com o id:{id} não existe.");
+        public IActionResult Get(int? id)
+            => _service.Get(id) != null ?
+                    ApiOk(_service.Get(id)) :
+                    ApiNotFound($"Estabelecimento com o id:{id} não existe.");
 
         [HttpPost]
-        public IActionResult Create([FromBody] Estabelecimento estabelecimento) =>
-            _service.Create(estabelecimento) ?
-                ApiCreated("Estabelecimento criado com sucesso!") :
-                ApiBadRequest("Não foi possível criar o estabelecimento.");
+        public IActionResult Create([FromBody] Estabelecimento estabelecimento) 
+            => _service.Create(estabelecimento) ?
+                    ApiCreated("Estabelecimento criado com sucesso!") :
+                    ApiBadRequest("Não foi possível criar o estabelecimento.");
 
         [HttpPut]
         public IActionResult Update([FromBody] Estabelecimento estabelecimento)
-        {
-            return _service.Update(estabelecimento) ? 
-                ApiOk("Estabelecimento atualizado com sucesso!") :
-                ApiBadRequest("Não foi possível atualizar o estabelecimento!");
-        }
+            => _service.Update(estabelecimento) ? 
+                    ApiOk("Estabelecimento atualizado com sucesso!") :
+                    ApiBadRequest("Não foi possível atualizar o estabelecimento!");
 
         [HttpDelete]
         [Route("{id}")]
@@ -79,28 +77,22 @@ namespace pneustoreAPI.Controllers
         [HttpPost]
         [Route("Estoque")]
         public IActionResult CreateEstoque([FromBody] EstabPneu estoque)
-        {
-            return _service.CreateEstoque(estoque) ? 
-                ApiOk("Estoque criado com sucesso!") :
-                ApiBadRequest(estoque, "Não foi possível criar o estoque!");
-        }
+            => _service.CreateEstoque(estoque) ? 
+                    ApiCreated("Estoque criado com sucesso!") :
+                    ApiBadRequest(estoque, "Não foi possível criar o estoque!");
 
         [HttpPut]
         [Route("Estoque")]
         public IActionResult UpdateEstoque([FromBody] EstabPneu estoque)
-        {
-            return _service.EditEstoque(estoque) ?
-                ApiOk("Estoque atualizado com sucesso!") :
-                ApiBadRequest(estoque, "Não foi possível atualizar o estoque!");
-        }
+            => _service.EditEstoque(estoque) ?
+                    ApiOk("Estoque atualizado com sucesso!") :
+                    ApiBadRequest(estoque, "Não foi possível atualizar o estoque!");
 
         [HttpDelete]
         [Route("Estoque/{productId?}/{estabId?}")]
         public IActionResult DeleteEstoque(int? productId, int? estabId)
-        {
-            return _service.DeleteEstoque(_service.GetSingleEstoque(productId, estabId)) ? 
-                ApiOk("Estoque deletado com sucesso!") : 
-                ApiBadRequest("Não foi possível deletar o estoque!");
-        }
+            => _service.DeleteEstoque(_service.GetSingleEstoque(productId, estabId)) ? 
+                    ApiOk("Estoque deletado com sucesso!") : 
+                    ApiBadRequest("Não foi possível deletar o estoque!");
     }
 }
