@@ -77,8 +77,8 @@ Para utilizar essa API, há duas alternativas: utilizando da nuvem e utilizando 
 
 ```json
 {
-    "nome": "BBBB",
-    "desconto": 0.9
+    "nome": "string",
+    "desconto": double
 }
 ```
 
