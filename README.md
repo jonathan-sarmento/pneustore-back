@@ -13,6 +13,16 @@ Para utilizar essa API, há duas alternativas: utilizando da nuvem e utilizando 
 
 ## Modelos de requisição
 
+### Usuário:
+```json
+{
+    "userName": "string",
+    "passwordHash": "string",
+    "isAnonymous": boolean,
+    "ip": "string"
+}
+```
+
 ### Carrinho - Adicionar:
 
 ```json
@@ -32,7 +42,7 @@ Para utilizar essa API, há duas alternativas: utilizando da nuvem e utilizando 
 }
 ```
 
-### Estoque - Adicionar:
+### Estoque:
 
 ```json
 {
@@ -42,12 +52,24 @@ Para utilizar essa API, há duas alternativas: utilizando da nuvem e utilizando 
 }
 ```
 
-### Estoque - Atualizar:
+### Estabelecimento:
+
 ```json
 {
-    "quantity": int,
-    "productId": int,
-    "estabelecimentoId": int
+    "nome": "string",
+    "endereco": "string",
+    "imagemUrl": "string"
+}
+```
+
+### Estabelecimento - Atualizar:
+
+```json
+{
+    "id": int,
+    "nome": "string",
+    "endereco": "string",
+    "imagemUrl": "stringg"
 }
 ```
 
