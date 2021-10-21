@@ -14,6 +14,8 @@ namespace pneustoreAPI.Data
             using (var scope = app.Services.CreateScope())
             {
                 var context = scope.ServiceProvider.GetRequiredService<Context>();
+                context.Database.Migrate();
+                
                 const int contador = 50;
                 Random rand = new Random();
 
@@ -72,7 +74,6 @@ namespace pneustoreAPI.Data
                     }
                 }
 
-                context.Database.Migrate();
                 context.SaveChanges();
             }
         }

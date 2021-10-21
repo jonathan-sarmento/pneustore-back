@@ -105,7 +105,7 @@ namespace pneustoreAPI.Controllers
         /// <param name="cupom"></param>
         /// <returns></returns>
         [HttpGet, Route("TotalPreco")]
-        public IActionResult GetTotalPreco([FromBody]string cupom) {
+        public IActionResult GetTotalPreco([FromBody] string cupom) {
             var total = _service.TotalCarrinho(User.Identity.Name);
 
             //Feito para evitar realizar uma consulta quando há certeza que não achará nada.

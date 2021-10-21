@@ -58,6 +58,8 @@ namespace pneustoreAPI.Services
 
         public string GenerateToken(PneuUser identityUser)
         {
+            var anonymousTokenExpires = Convert.ToInt32(_config["TokenExpires:UserAnonymous"]);
+            var userTokenExpires = Convert.ToInt32(_config["TokenExpires:User"]);
             var user = GetUser(identityUser);
             var role = GetUserRole(user);
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -71,7 +73,7 @@ namespace pneustoreAPI.Services
                     new Claim(ClaimTypes.Role, role),
                     new Claim(ClaimTypes.NameIdentifier, user.Id)
                 }),
-                Expires = user.IsAnonymous ? DateTime.UtcNow.AddMinutes(10) : DateTime.UtcNow.AddHours(2),
+                Expires = user.IsAnonymous ? DateTime.UtcNow.AddMinutes(anonymousTokenExpires) : DateTime.UtcNow.AddMinutes(userTokenExpires),
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(key),
                     SecurityAlgorithms.HmacSha256Signature)
@@ -96,9 +98,10 @@ namespace pneustoreAPI.Services
 
          public void TimeHasExpired(){
             
+            var tokenExpires = Convert.ToInt32(_config["TokenExpires:UserAnonymous"]);
             var users = GetAllUsersAsync().Result;
 
-            var anonymousUsers = users.Where(u => u.IsAnonymous &&  (DateTime.Now - u.Created).TotalMinutes >= 10);
+            var anonymousUsers = users.Where(u => u.IsAnonymous &&  (DateTime.Now - u.Created).TotalMinutes >= tokenExpires);
 
             if (anonymousUsers.Any())
                 anonymousUsers.ToList().ForEach(u => DeleteUser(u.Id));
